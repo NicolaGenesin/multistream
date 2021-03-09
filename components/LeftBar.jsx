@@ -13,14 +13,12 @@ import {
   IoMdAdd,
 } from 'react-icons/io';
 import {
-  IoCloseOutline, IoBulb,
+  IoCloseOutline,
 } from 'react-icons/io5';
 import AddStreamerModal from './AddStreamerModal';
 import Triangle from './Triangle';
 
 const Main = ({ streamersList, setStreamersList, maxNumberOfStreamers }) => {
-  console.log('RENDERING LEFT BAR');
-
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
@@ -40,24 +38,22 @@ const Main = ({ streamersList, setStreamersList, maxNumberOfStreamers }) => {
         setStreamersList={setStreamersList}
       />
       <Box
-        mb="8px"
+        mb="16px"
       >
         <Triangle w="30" h="20" direction="bottom" color="#772ce8" />
       </Box>
       {
           streamersList.map((currentStreamer, index) => (
             <Avatar
-              key={index}
+              key={`${index}`}
               size="sm"
-              name={currentStreamer.display_name}
+              name={currentStreamer.broadcaster_login}
               src={currentStreamer.thumbnail_url}
             >
               <AvatarBadge
                 onClick={() => {
                   const filteredList = streamersList
-                    .filter((streamer) => streamer.display_name !== currentStreamer.display_name);
-
-                  console.log(filteredList);
+                    .filter((streamer) => streamer.broadcaster_login !== currentStreamer.broadcaster_login);
 
                   setStreamersList([...filteredList]);
                 }}
@@ -74,7 +70,7 @@ const Main = ({ streamersList, setStreamersList, maxNumberOfStreamers }) => {
           ))
       }
       <VStack
-        pt="24px"
+        pt="16px"
       >
         <Circle
           _hover={{ bg: '#555' }}

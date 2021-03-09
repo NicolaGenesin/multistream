@@ -9,12 +9,6 @@ import {
 import { useTimeout } from 'react-use';
 import LeftBar from '../components/LeftBar';
 
-// we just got the usernames from the url path
-// create a new array so it is compatible with the searched ones
-const params = ['neenoh', 'justbree', 'tom'].map((username) => ({
-  display_name: username,
-}));
-
 const maxNumberOfStreamers = 4;
 const layouts = {
   '0-players': {
@@ -46,10 +40,10 @@ const layouts = {
   ],
 };
 
-const Main = () => {
+const Main = ({ params }) => {
   const router = useRouter();
-  // const { params } = router.query;
   const [isReady, cancel] = useTimeout(500);
+  const [hasFetchedImages, setHasFetchedImages] = useState(false);
   const [streamersList, setStreamersList] = useState(params);
   const numberOfStreamers = streamersList.length;
   const selectableLayouts = layouts[`${numberOfStreamers}-players`];
@@ -58,9 +52,9 @@ const Main = () => {
   const gridItems = isReady() ? streamersList.map((streamer, index) => (
     <Box
         // bg={['#0ff', '#f0f', '#00f'][index]}
-      key={streamer.display_name}
+      key={streamer.broadcaster_login}
       style={{ order: index }}
-      id={streamer.display_name}
+      id={streamer.broadcaster_login}
       className="iframe-wrapper"
       flex={selectedLayout.values[index]}
       width="100%"
@@ -68,9 +62,9 @@ const Main = () => {
     >
       <TwitchEmbed
         style={{ display: 'block', width: '100%' }}
-        channel={streamer.display_name}
-        id={streamer.display_name}
-        key={streamer.display_name}
+        channel={streamer.broadcaster_login}
+        id={streamer.broadcaster_login}
+        key={streamer.broadcaster_login}
         theme="dark"
         autoplay={false}
         withChat={false}
@@ -84,6 +78,40 @@ const Main = () => {
       setStreamersList(params);
     }
   }, [params]);
+
+  useEffect(async () => {
+    const loginNames = streamersList.map((streamer) => streamer.login || streamer.broadcaster_login);
+    const path = loginNames.join('/');
+    // todo check if it's not the same to avoid unnecessary rendering
+    router.push({
+      pathname: `/${path}`,
+    }, undefined, { shallow: true });
+
+    if (hasFetchedImages) { return; }
+
+    const query = loginNames.map((name) => `login=${name}`).join('&');
+    const response = await fetch(`https://api.twitch.tv/helix/users?${query}`, {
+      method: 'GET',
+      headers: {
+        'client-id': 'oc2v6nbh3v12i5i5x8et8bo7amnu9o',
+        Authorization: 'Bearer ' + '0joge0i8si4qv6eifd9weoztm510cn',
+      },
+    });
+
+    const result = await response.json();
+    const newList = [...streamersList];
+
+    result.data.forEach((streamerInfo) => {
+      const existingStreamerRecord = newList
+        .find((streamer) => streamer.login === streamerInfo.login);
+
+      existingStreamerRecord.thumbnail_url = streamerInfo.profile_image_url;
+      existingStreamerRecord.broadcaster_login = streamerInfo.login;
+    });
+
+    setHasFetchedImages(true);
+    setStreamersList(newList);
+  }, [streamersList]);
 
   if (!params) {
     return <Box />;
@@ -113,6 +141,14 @@ const Main = () => {
       </HStack>
     </Box>
   );
+};
+
+Main.getInitialProps = async function ({ query }) {
+  return {
+    params: query.params.map((username) => ({
+      login: username,
+    })),
+  };
 };
 
 export default Main;
