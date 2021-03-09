@@ -1,117 +1,118 @@
-// passaggio domani
-// pippo
-// fiori
-
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import {
-  Box, Button, Flex, GridItem,
+  Box, Flex, HStack,
 } from '@chakra-ui/react';
 import {
   TwitchEmbed,
 } from 'react-twitch-embed';
+import { useTimeout } from 'react-use';
+import LeftBar from '../components/LeftBar';
 
-const params = ['neenoh', 'justbree', 'tom'];
-const numberOfStreamers = params.length;
+// we just got the usernames from the url path
+// create a new array so it is compatible with the searched ones
+const params = ['neenoh', 'justbree', 'tom'].map((username) => ({
+  display_name: username,
+}));
+
+const maxNumberOfStreamers = 4;
 const layouts = {
   '0-players': {
 
   },
-  '1-players': {
-
-  },
-  '2-players': {
-
-  },
+  '1-players': [
+    {
+      values: ['100%'],
+      heightPercentagePerRow: '100%',
+    },
+  ],
+  '2-players': [
+    {
+      values: ['100%', '100%'],
+      heightPercentagePerRow: '50%',
+    },
+  ],
   '3-players': [
     {
-      values: ['99%', '33%', '33%'],
+      values: ['100%', '50%', '50%'],
+      heightPercentagePerRow: '50%',
+    },
+  ],
+  '4-players': [
+    {
+      values: ['90%', '30%', '30%', '30%'],
       heightPercentagePerRow: '50%',
     },
   ],
 };
-const selectableLayouts = layouts[`${numberOfStreamers}-players`];
-const selectedLayoutIndex = 0;
-const selectedLayout = selectableLayouts[selectedLayoutIndex];
 
 const Main = () => {
   const router = useRouter();
   // const { params } = router.query;
-  const [streamersIdList, setStreamersIdList] = useState(params);
-
-  const gridItems = streamersIdList.map((streamerId, index) => (
+  const [isReady, cancel] = useTimeout(500);
+  const [streamersList, setStreamersList] = useState(params);
+  const numberOfStreamers = streamersList.length;
+  const selectableLayouts = layouts[`${numberOfStreamers}-players`];
+  const selectedLayoutIndex = 0;
+  const selectedLayout = selectableLayouts[selectedLayoutIndex];
+  const gridItems = isReady() ? streamersList.map((streamer, index) => (
     <Box
-      key={streamerId}
+        // bg={['#0ff', '#f0f', '#00f'][index]}
+      key={streamer.display_name}
       style={{ order: index }}
-      id={streamerId}
+      id={streamer.display_name}
       className="iframe-wrapper"
       flex={selectedLayout.values[index]}
       width="100%"
       height={selectedLayout.heightPercentagePerRow}
     >
-      {streamerId}
       <TwitchEmbed
-        channel={streamerId}
-        id={streamerId}
-        key={streamerId}
+        style={{ display: 'block', width: '100%' }}
+        channel={streamer.display_name}
+        id={streamer.display_name}
+        key={streamer.display_name}
         theme="dark"
         autoplay={false}
         withChat={false}
         onVideoPause={() => console.log(':(')}
       />
     </Box>
-  ));
-
-  const [components, setComponents] = useState(gridItems);
+  )) : '';
 
   useEffect(() => {
     if (params) {
-      setStreamersIdList(params);
-      setComponents(gridItems);
+      setStreamersList(params);
     }
   }, [params]);
 
-  // if (!params) {
-  //   return <Box />;
-  // }
-
-  console.log(components);
+  if (!params) {
+    return <Box />;
+  }
 
   return (
     <Box>
-      <Button
-        onClick={() => {
-          const wrappers = document.getElementsByClassName('iframe-wrapper');
-
-          console.log(wrappers);
-
-          for (const wrapper of wrappers) {
-            const nextOrder = parseInt(wrapper.style.order) + 1;
-            if (nextOrder >= numberOfStreamers) {
-              nextOrder = 0;
-            }
-
-            wrapper.style.order = `${nextOrder}`;
-          }
-        }}
+      <HStack
+        spacing={0}
       >
-        Rotate
-      </Button>
-      <Flex
-        h="100vh"
-        flexDirection="row"
-        flexWrap="wrap"
-        justifyItems="flex-start"
-        alignItems="flex-start"
-      >
-        {gridItems}
-      </Flex>
+        <LeftBar
+          streamersList={streamersList}
+          setStreamersList={setStreamersList}
+          maxNumberOfStreamers={maxNumberOfStreamers}
+        />
+        <Flex
+          bg="#18161a"
+          h="100vh"
+          w="100%"
+          flexDirection="row"
+          flexWrap="wrap"
+          justifyItems="flex-start"
+          alignItems="flex-start"
+        >
+          {gridItems}
+        </Flex>
+      </HStack>
     </Box>
   );
-};
-
-Main.getInitialProps = async function ({ }) {
-  return {};
 };
 
 export default Main;
