@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   AvatarBadge, Avatar, VStack, useDisclosure,
-  useToast, Icon, Spacer, Link, Circle,
+  useToast, Icon, Spacer, Link, Circle, Text, Box,
 } from '@chakra-ui/react';
 import {
   CgArrowsExchangeAlt,
@@ -16,6 +16,7 @@ import {
   IoCloseOutline, IoBulb,
 } from 'react-icons/io5';
 import AddStreamerModal from './AddStreamerModal';
+import Triangle from './Triangle';
 
 const Main = ({ streamersList, setStreamersList, maxNumberOfStreamers }) => {
   console.log('RENDERING LEFT BAR');
@@ -26,8 +27,10 @@ const Main = ({ streamersList, setStreamersList, maxNumberOfStreamers }) => {
   return (
     <VStack
       h="100vh"
-      bg="#333"
-      p="8px"
+      bg="#3b3b44"
+      pb="8px"
+      pl="8px"
+      pr="8px"
     >
       <AddStreamerModal
         isOpen={isOpen}
@@ -36,18 +39,11 @@ const Main = ({ streamersList, setStreamersList, maxNumberOfStreamers }) => {
         streamersList={streamersList}
         setStreamersList={setStreamersList}
       />
-      <Circle
-        _hover={{ bg: '#555' }}
-        borderColor="#fff"
-        borderWidth="2px"
-        w={8}
-        h={8}
+      <Box
+        mb="8px"
       >
-        <Icon
-          as={IoBulb}
-          color="#fff"
-        />
-      </Circle>
+        <Triangle w="30" h="20" direction="bottom" color="#772ce8" />
+      </Box>
       {
           streamersList.map((currentStreamer, index) => (
             <Avatar
@@ -131,6 +127,18 @@ const Main = ({ streamersList, setStreamersList, maxNumberOfStreamers }) => {
         </Circle>
       </VStack>
       <Spacer />
+      <Box mb="16px">
+        <div
+          className="verticalDiv"
+        >
+          <Text
+            color="#fff"
+            fontSize="xl"
+          >
+            STREAMDASH.GG
+          </Text>
+        </div>
+      </Box>
       <Link href="https://www.twitch.tv/" isExternal>
         <Icon
           mb="4px"
@@ -138,9 +146,26 @@ const Main = ({ streamersList, setStreamersList, maxNumberOfStreamers }) => {
           w={6}
           h={6}
           color="#fff"
-          _hover={{ color: '#f0f' }}
+          _hover={{ color: '#772ce8' }}
         />
       </Link>
+      <style jsx>
+        {
+        `.verticalDiv {
+            writing-mode:tb-rl;
+            -webkit-transform:rotate(180deg);
+            -moz-transform:rotate(180deg);
+            -o-transform: rotate(180deg);
+            -ms-transform:rotate(180deg);
+            transform: rotate(180deg);
+            white-space:nowrap;
+            display:block;
+            bottom:0;
+            width:100%;
+            height:auto;
+        }`
+        }
+      </style>
     </VStack>
   );
 };

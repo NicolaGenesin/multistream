@@ -19,12 +19,16 @@ const Main = ({
         onClose={onClose}
       >
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Search by Twitch Username</ModalHeader>
+        <ModalContent
+          bg="#3b3b44"
+          color="white"
+        >
+          <ModalHeader>Search by Twitch username</ModalHeader>
           <ModalCloseButton mt="8px" mr="8px" />
           <ModalBody>
             <FormControl>
               <Input
+                _focus={{ borderColor: '#772ce8' }}
                 ref={initialRef}
                 placeholder="Neenoh"
               />
@@ -34,7 +38,7 @@ const Main = ({
             <Spacer />
             <Button
               w="100%"
-              colorScheme="blue"
+              color="#772ce8"
               onClick={async () => {
                 const response = await fetch(`https://api.twitch.tv/helix/search/channels?query=${initialRef.current.value}`, {
                   method: 'GET',
@@ -65,7 +69,7 @@ const Main = ({
                         setSearchResult([]);
                         onClose();
                       }}
-                      _hover={{ bg: '#efefef' }}
+                      _hover={{ bg: '#444450' }}
                     >
                       <Td>
                         <HStack>
