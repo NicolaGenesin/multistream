@@ -9,6 +9,7 @@ import {
 import { useTimeout } from 'react-use';
 import LeftBar from '../components/LeftBar';
 import EmptyState from '../components/EmptyState';
+import Chat from '../components/Chat';
 
 const maxNumberOfStreamers = 4;
 const layouts = {
@@ -70,7 +71,7 @@ const Main = ({ params }) => {
         id={streamer.broadcaster_login}
         key={streamer.broadcaster_login}
         theme="dark"
-        autoplay={false}
+        autoplay
         withChat={false}
         muted={index > 0}
       />
@@ -118,6 +119,10 @@ const Main = ({ params }) => {
       if (!existingStreamerRecord.broadcaster_login) {
         existingStreamerRecord.broadcaster_login = streamerInfo.login;
       }
+
+      if (!existingStreamerRecord.display_name) {
+        existingStreamerRecord.display_name = streamerInfo.display_name;
+      }
     });
 
     setHasFetchedImages(true);
@@ -127,6 +132,9 @@ const Main = ({ params }) => {
   if (!params) {
     return <Box />;
   }
+
+  const streamsFlex = 7;
+  const chatFlex = 3;
 
   return (
     <Box>
@@ -141,20 +149,37 @@ const Main = ({ params }) => {
           selectedLayout={selectedLayout}
         />
         <Flex
-          bg="#18161a"
+          bg="#f0f"
           h="100vh"
           w="100%"
-          flexDirection="row"
-          flexWrap="wrap"
-          justifyItems="flex-start"
-          alignItems="flex-start"
         >
-          {!streamersList.length && (
-          <EmptyState
-            action={leftBarRef.current && leftBarRef.current.openModal}
-          />
-          )}
-          {gridItems}
+          <Flex
+            bg="#18161a"
+            h="100%"
+            flex={streamsFlex}
+            flexDirection="row"
+            flexWrap="wrap"
+            justifyItems="flex-start"
+            alignItems="flex-start"
+          >
+            {!streamersList.length && (
+            <EmptyState
+              action={leftBarRef.current && leftBarRef.current.openModal}
+            />
+            )}
+            {gridItems}
+          </Flex>
+          <Box
+            id="chat-box"
+            flex={chatFlex}
+            h="100%"
+          >
+            <Chat
+              key={`${Math.random()}`} // force reload the chat iframe when the stream list changes
+              streamersList={streamersList}
+              chatFlex={chatFlex}
+            />
+          </Box>
         </Flex>
       </HStack>
       <TwitchEmbed

@@ -13,6 +13,8 @@ const Main = ({ action }) => (
     <VStack>
       <Heading
         mb="16px"
+        textAlign="center"
+        p="16px"
       >
         Watch multiple Twitch streams on the same page.
       </Heading>
