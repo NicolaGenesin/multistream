@@ -89,7 +89,7 @@ const Main = ({ params }) => {
       pathname: `/${path}`,
     }, undefined, { shallow: true });
 
-    if (hasFetchedImages) { return; }
+    if (hasFetchedImages || !streamersList.length) { return; }
 
     const query = loginNames.map((name) => `login=${name}`).join('&');
     const response = await fetch(`https://api.twitch.tv/helix/users?${query}`, {
@@ -148,7 +148,7 @@ const Main = ({ params }) => {
 
 Main.getInitialProps = async function ({ query }) {
   return {
-    params: query.params.map((username) => ({
+    params: (query.params || []).map((username) => ({
       login: username,
     })),
   };
