@@ -70,8 +70,9 @@ const Main = ({ streamersList, chatFlex }) => {
             setStreamer(streamer);
           }}
         >
-          {streamersList.map((x) => (
+          {streamersList.map((x, index) => (
             <option
+              key={`${index}`}
               value={x.broadcaster_login}
             >
               {x.display_name}
