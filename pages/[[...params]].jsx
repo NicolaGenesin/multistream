@@ -158,6 +158,7 @@ const Main = ({ params }) => {
         </Flex>
       </HStack>
       <TwitchEmbed
+        // this is a dummy component used to load all twitch resources before we add real streamers
         style={{ display: 'none', width: '100%' }}
         channel="tom"
         id="tom"
