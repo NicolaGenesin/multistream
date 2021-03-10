@@ -4,7 +4,7 @@ import React, {
 import { useRouter } from 'next/router';
 import {
   AvatarBadge, Avatar, VStack, useDisclosure,
-  useToast, Icon, Spacer, Link, Circle, Text, Box,
+  useToast, Icon, Spacer, Link, Circle, Text, Box, Center,
 } from '@chakra-ui/react';
 import {
   SiTwitch,
@@ -207,18 +207,20 @@ const Main = forwardRef(({
       </VStack>
       <Spacer />
       <Box mb="16px">
-        <div
-          className="verticalDiv"
-        >
-          <Text
-            color="#fff"
-            fontSize="lg"
-            fontWeight="semibold"
-            letterSpacing="wide"
+        <Center>
+          <div
+            className="verticalDiv"
           >
-            MULTISTREAM.GG
-          </Text>
-        </div>
+            <Text
+              color="#fff"
+              fontSize="lg"
+              fontWeight="semibold"
+              letterSpacing="wide"
+            >
+              MULTISTREAM.GG
+            </Text>
+          </div>
+        </Center>
       </Box>
       <Link href="https://www.twitch.tv/" isExternal>
         <Icon
@@ -242,7 +244,7 @@ const Main = forwardRef(({
             white-space:nowrap;
             display:block;
             bottom:0;
-            width:100%;
+            width:auto;
             height:auto;
         }`
         }

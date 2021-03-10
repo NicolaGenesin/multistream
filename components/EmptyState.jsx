@@ -16,7 +16,7 @@ const Main = ({ action }) => (
         textAlign="center"
         p="16px"
       >
-        Watch multiple Twitch streams on the same page.
+        Watch multiple Twitch streams on the same page
       </Heading>
       <Box>
         <Button
