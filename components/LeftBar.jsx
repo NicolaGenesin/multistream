@@ -85,21 +85,21 @@ const Main = ({
           borderWidth="2px"
           w={8}
           h={8}
+          onClick={() => {
+            if (maxNumberOfStreamers === streamersList.length) {
+              toast({
+                title: `The maximum number of concurrent streams is ${maxNumberOfStreamers}`,
+                description: 'Please delete one from the left column before adding a new one.',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+              });
+            } else {
+              onOpen();
+            }
+          }}
         >
           <Icon
-            onClick={() => {
-              if (maxNumberOfStreamers === streamersList.length) {
-                toast({
-                  title: `The maximum number of concurrent streams is ${maxNumberOfStreamers}`,
-                  description: 'Please delete one from the left column before adding a new one.',
-                  status: 'error',
-                  duration: 9000,
-                  isClosable: true,
-                });
-              } else {
-                onOpen();
-              }
-            }}
             as={IoMdAdd}
             color="#ddd"
           />
@@ -110,26 +110,26 @@ const Main = ({
           borderWidth="2px"
           w={8}
           h={8}
+          onClick={() => {
+            const wrappers = document.getElementsByClassName('iframe-wrapper');
+
+            for (const wrapper of wrappers) {
+              const nextOrder = parseInt(wrapper.style.order) + 1;
+              if (nextOrder >= streamersList.length) {
+                nextOrder = 0;
+              }
+
+              wrapper.style.order = `${nextOrder}`;
+              wrapper.style.flex = `${selectedLayout.values[nextOrder]}`;
+              wrapper.style.height = nextOrder === 0
+                ? `${selectedLayout.heightPercentagePerRow[0]}`
+                : `${selectedLayout.heightPercentagePerRow[1]}`;
+            }
+          }}
         >
           <Icon
             as={MdRotateRight}
             color="#ddd"
-            onClick={() => {
-              const wrappers = document.getElementsByClassName('iframe-wrapper');
-
-              for (const wrapper of wrappers) {
-                const nextOrder = parseInt(wrapper.style.order) + 1;
-                if (nextOrder >= streamersList.length) {
-                  nextOrder = 0;
-                }
-
-                wrapper.style.order = `${nextOrder}`;
-                wrapper.style.flex = `${selectedLayout.values[nextOrder]}`;
-                wrapper.style.height = nextOrder === 0
-                  ? `${selectedLayout.heightPercentagePerRow[0]}`
-                  : `${selectedLayout.heightPercentagePerRow[1]}`;
-              }
-            }}
           />
         </Circle>
       </VStack>
