@@ -59,7 +59,7 @@ const Main = ({ params }) => {
   }, [params]);
 
   useEffect(() => {
-    if (streamersList.length && document) {
+    if (streamersList.length) {
       const items = streamersList.map((streamer, index) => (
         <Box
           // bg={['#0ff', '#f0f', '#00f'][index]}
@@ -87,6 +87,8 @@ const Main = ({ params }) => {
       ));
 
       setGridItems(items);
+    } else {
+      setGridItems('');
     }
   }, [streamersList]);
 
