@@ -57,8 +57,6 @@ const Main = ({
 
               const result = await response.json();
 
-              console.log(result);
-
               setSearchResult(result.data);
             }}
           >
