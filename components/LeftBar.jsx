@@ -5,12 +5,14 @@ import { useRouter } from 'next/router';
 import {
   AvatarBadge, Avatar, VStack, useDisclosure,
   useToast, Icon, Spacer, Link, Circle, Text, Box, Center,
+  Popover, PopoverTrigger, PopoverContent, PopoverHeader,
+  PopoverBody, PopoverArrow, PopoverCloseButton,
 } from '@chakra-ui/react';
 import {
   SiTwitch,
 } from 'react-icons/si';
 import {
-  IoMdAdd,
+  IoMdAdd, IoMdInformationCircleOutline,
 } from 'react-icons/io';
 import {
   IoCloseOutline,
@@ -19,11 +21,8 @@ import {
   MdRotateRight,
 } from 'react-icons/md';
 import {
-  EmailShareButton, FacebookShareButton, LinkedinShareButton,
-  PinterestShareButton, RedditShareButton, TelegramShareButton,
-  TumblrShareButton, TwitterShareButton, WhatsappShareButton,
-  FacebookIcon, TwitterIcon, LinkedinIcon, PinterestIcon, TelegramIcon,
-  WhatsappIcon, RedditIcon, TumblrIcon, EmailIcon,
+  RedditShareButton, TelegramShareButton, TwitterShareButton, WhatsappShareButton,
+  TwitterIcon, TelegramIcon, WhatsappIcon, RedditIcon,
 } from 'react-share';
 import AddStreamerModal from './AddStreamerModal';
 import Triangle from './Triangle';
@@ -207,20 +206,65 @@ const Main = forwardRef(({
       </VStack>
       <Spacer />
       <Box mb="16px">
-        <Center>
-          <div
-            className="verticalDiv"
+        <Popover placement="right">
+          <PopoverTrigger>
+            <VStack>
+              <Center>
+                <Icon
+                  mb="8px"
+                  as={IoMdInformationCircleOutline}
+                  color="#fff"
+                  _hover={{ color: '#ddd' }}
+                />
+              </Center>
+              <Center>
+                <div
+                  className="verticalDiv"
+                >
+                  <Text
+                    color="#fff"
+                    fontSize="lg"
+                    fontWeight="semibold"
+                    letterSpacing="wide"
+                  >
+                    MULTISTREAM.GG
+                  </Text>
+                </div>
+              </Center>
+            </VStack>
+          </PopoverTrigger>
+          <PopoverContent
+            mt="-16px"
+            color="#fff"
+            bg="#333"
+            fontSize="sm"
           >
-            <Text
-              color="#fff"
-              fontSize="lg"
-              fontWeight="semibold"
-              letterSpacing="wide"
-            >
-              MULTISTREAM.GG
-            </Text>
-          </div>
-        </Center>
+            <PopoverHeader fontWeight="semibold">Feedback or ideas? Write me!</PopoverHeader>
+            <PopoverArrow bg="#333" />
+            <PopoverCloseButton bg="#9147ff" />
+            <PopoverBody>
+              Twitter:
+              {' '}
+              <Link color="#9147ff" href="https://twitter.com/NicolaGenesin">
+                @NicolaGenesin
+              </Link>
+              <br />
+              Github:
+              {' '}
+              <Link color="#9147ff" href="https://github.com/NicolaGenesin">
+                NicolaGenesin
+              </Link>
+              <br />
+              Reddit:
+              {' '}
+              <Link color="#9147ff" href="https://www.reddit.com/message/compose/?to=1911z">
+                1911z
+              </Link>
+              <br />
+              Email: 1911genesin at gmail.com
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
       </Box>
       <Link href="https://www.twitch.tv/" isExternal>
         <Icon
