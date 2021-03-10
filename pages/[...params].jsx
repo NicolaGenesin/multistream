@@ -17,25 +17,25 @@ const layouts = {
   '1-players': [
     {
       values: ['100%'],
-      heightPercentagePerRow: '100%',
+      heightPercentagePerRow: ['100%', '100%'],
     },
   ],
   '2-players': [
     {
       values: ['100%', '100%'],
-      heightPercentagePerRow: '50%',
+      heightPercentagePerRow: ['60%', '40%'],
     },
   ],
   '3-players': [
     {
       values: ['100%', '50%', '50%'],
-      heightPercentagePerRow: '50%',
+      heightPercentagePerRow: ['60%', '40%'],
     },
   ],
   '4-players': [
     {
       values: ['90%', '30%', '30%', '30%'],
-      heightPercentagePerRow: '50%',
+      heightPercentagePerRow: ['60%', '40%'],
     },
   ],
 };
@@ -51,14 +51,16 @@ const Main = ({ params }) => {
   const selectedLayout = selectableLayouts[selectedLayoutIndex];
   const gridItems = isReady() ? streamersList.map((streamer, index) => (
     <Box
-        // bg={['#0ff', '#f0f', '#00f'][index]}
+      // bg={['#0ff', '#f0f', '#00f'][index]}
       key={streamer.broadcaster_login}
-      style={{ order: index }}
+      style={{
+        order: index,
+        flex: `${selectedLayout.values[index]}`,
+        height: index === 0 ? selectedLayout.heightPercentagePerRow[0] : selectedLayout.heightPercentagePerRow[1],
+      }}
       id={streamer.broadcaster_login}
       className="iframe-wrapper"
-      flex={selectedLayout.values[index]}
       width="100%"
-      height={selectedLayout.heightPercentagePerRow}
     >
       <TwitchEmbed
         style={{ display: 'block', width: '100%' }}
@@ -68,7 +70,7 @@ const Main = ({ params }) => {
         theme="dark"
         autoplay={false}
         withChat={false}
-        onVideoPause={() => console.log(':(')}
+        muted={index > 0}
       />
     </Box>
   )) : '';
@@ -126,6 +128,7 @@ const Main = ({ params }) => {
           streamersList={streamersList}
           setStreamersList={setStreamersList}
           maxNumberOfStreamers={maxNumberOfStreamers}
+          selectedLayout={selectedLayout}
         />
         <Flex
           bg="#18161a"

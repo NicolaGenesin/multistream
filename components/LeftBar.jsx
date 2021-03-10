@@ -4,9 +4,6 @@ import {
   useToast, Icon, Spacer, Link, Circle, Text, Box,
 } from '@chakra-ui/react';
 import {
-  CgArrowsExchangeAlt,
-} from 'react-icons/cg';
-import {
   SiTwitch,
 } from 'react-icons/si';
 import {
@@ -15,10 +12,18 @@ import {
 import {
   IoCloseOutline,
 } from 'react-icons/io5';
+import {
+  MdRotateRight,
+} from 'react-icons/md';
 import AddStreamerModal from './AddStreamerModal';
 import Triangle from './Triangle';
 
-const Main = ({ streamersList, setStreamersList, maxNumberOfStreamers }) => {
+const Main = ({
+  streamersList,
+  setStreamersList,
+  maxNumberOfStreamers,
+  selectedLayout,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
@@ -45,6 +50,8 @@ const Main = ({ streamersList, setStreamersList, maxNumberOfStreamers }) => {
       {
           streamersList.map((currentStreamer, index) => (
             <Avatar
+              borderColor="#ddd"
+              borderWidth="2px"
               key={`${index}`}
               size="sm"
               name={currentStreamer.broadcaster_login}
@@ -59,7 +66,7 @@ const Main = ({ streamersList, setStreamersList, maxNumberOfStreamers }) => {
                 }}
                 borderColor="#777"
                 bg="#777"
-                color="#fff"
+                color="#ddd"
                 boxSize="1em"
               >
                 <Icon
@@ -74,7 +81,7 @@ const Main = ({ streamersList, setStreamersList, maxNumberOfStreamers }) => {
       >
         <Circle
           _hover={{ bg: '#555' }}
-          borderColor="#fff"
+          borderColor="#ddd"
           borderWidth="2px"
           w={8}
           h={8}
@@ -94,19 +101,19 @@ const Main = ({ streamersList, setStreamersList, maxNumberOfStreamers }) => {
               }
             }}
             as={IoMdAdd}
-            color="#fff"
+            color="#ddd"
           />
         </Circle>
         <Circle
           _hover={{ bg: '#555' }}
-          borderColor="#fff"
+          borderColor="#ddd"
           borderWidth="2px"
           w={8}
           h={8}
         >
           <Icon
-            as={CgArrowsExchangeAlt}
-            color="#fff"
+            as={MdRotateRight}
+            color="#ddd"
             onClick={() => {
               const wrappers = document.getElementsByClassName('iframe-wrapper');
 
@@ -117,6 +124,10 @@ const Main = ({ streamersList, setStreamersList, maxNumberOfStreamers }) => {
                 }
 
                 wrapper.style.order = `${nextOrder}`;
+                wrapper.style.flex = `${selectedLayout.values[nextOrder]}`;
+                wrapper.style.height = nextOrder === 0
+                  ? `${selectedLayout.heightPercentagePerRow[0]}`
+                  : `${selectedLayout.heightPercentagePerRow[1]}`;
               }
             }}
           />
@@ -128,8 +139,8 @@ const Main = ({ streamersList, setStreamersList, maxNumberOfStreamers }) => {
           className="verticalDiv"
         >
           <Text
-            color="#fff"
-            fontSize="xl"
+            color="#ddd"
+            fontSize="lg"
           >
             STREAMDASH.GG
           </Text>
@@ -141,7 +152,7 @@ const Main = ({ streamersList, setStreamersList, maxNumberOfStreamers }) => {
           as={SiTwitch}
           w={6}
           h={6}
-          color="#fff"
+          color="#ddd"
           _hover={{ color: '#772ce8' }}
         />
       </Link>
