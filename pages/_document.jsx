@@ -13,7 +13,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <title>Multistream.ggz</title>
+          <title>Multistream.gg</title>
           <link rel="icon" href="/favicon.ico" />
           <meta name="description" content="Find and watch multiple Twitch streams on the same screen." />
 
