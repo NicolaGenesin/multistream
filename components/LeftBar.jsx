@@ -48,7 +48,7 @@ const Main = forwardRef(({
 
   useEffect(() => {
     const handleRouteChange = (url) => {
-      setShareURL(`https://finddomainname.com${url}`);
+      setShareURL(`https://multistream.gg${url}`);
     };
 
     router.events.on('routeChangeStart', handleRouteChange);
@@ -216,7 +216,7 @@ const Main = forwardRef(({
             fontWeight="semibold"
             letterSpacing="wide"
           >
-            STREAMDASH.GG
+            MULTISTREAM.GG
           </Text>
         </div>
       </Box>
