@@ -106,10 +106,17 @@ const Main = ({ params }) => {
 
     result.data.forEach((streamerInfo) => {
       const existingStreamerRecord = newList
-        .find((streamer) => streamer.login === streamerInfo.login);
+        .find((streamer) => (
+          streamer.login === streamerInfo.login || streamer.broadcaster_login === streamerInfo.login
+        ));
 
-      existingStreamerRecord.thumbnail_url = streamerInfo.profile_image_url;
-      existingStreamerRecord.broadcaster_login = streamerInfo.login;
+      if (!existingStreamerRecord.thumbnail_url) {
+        existingStreamerRecord.thumbnail_url = streamerInfo.profile_image_url;
+      }
+
+      if (!existingStreamerRecord.broadcaster_login) {
+        existingStreamerRecord.broadcaster_login = streamerInfo.login;
+      }
     });
 
     setHasFetchedImages(true);
@@ -171,6 +178,16 @@ const Main = ({ params }) => {
           {gridItems}
         </Flex>
       </HStack>
+      <TwitchEmbed
+        style={{ display: 'none', width: '100%' }}
+        channel="tom"
+        id="tom"
+        key="tom"
+        theme="dark"
+        autoplay={false}
+        withChat={false}
+        muted
+      />
     </Box>
   );
 };
