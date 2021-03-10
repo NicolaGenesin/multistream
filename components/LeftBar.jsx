@@ -89,7 +89,7 @@ const Main = forwardRef(({
           ))
       }
       <VStack
-        pt="16px"
+        pt={streamersList.length ? '16px' : '0px'}
       >
         <Circle
           _hover={{ bg: '#555' }}
