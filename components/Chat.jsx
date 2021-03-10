@@ -12,7 +12,7 @@ import OpenChatButton from './OpenChatButton';
 const Main = ({ streamersList, chatFlex }) => {
   const [isChatOpen, setChatState] = useState(true);
   const [streamer, setStreamer] = useState(streamersList.length > 0 ? streamersList[0] : null);
-  const [isReady, cancel] = useTimeout(1500);
+  const [twitchChat, setTwitchChat] = useState(<Spacer />);
 
   useEffect(() => {
     if (document) {
@@ -26,8 +26,23 @@ const Main = ({ streamersList, chatFlex }) => {
     }
   }, [isChatOpen]);
 
+  useEffect(() => {
+    if (streamer) {
+      setTwitchChat(<TwitchChat
+        width="100%"
+        height="100%"
+        channel={streamer.broadcaster_login}
+        theme="dark"
+      />);
+    }
+  }, [streamer]);
+
   if (!isChatOpen) {
-    return <OpenChatButton setChatState={setChatState} />;
+    return (
+      <OpenChatButton
+        setChatState={setChatState}
+      />
+    );
   }
 
   return (
@@ -36,8 +51,7 @@ const Main = ({ streamersList, chatFlex }) => {
       w="100%"
       h="100%"
     >
-      {streamer && isReady() && <TwitchChat width="100%" height="100%" channel={streamer.broadcaster_login} theme="dark" />}
-      {(!streamer || !isReady()) && <Spacer />}
+      {twitchChat}
       <HStack
         w="100%"
         pb="8px"

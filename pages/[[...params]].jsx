@@ -6,7 +6,6 @@ import {
 import {
   TwitchEmbed,
 } from 'react-twitch-embed';
-import { useTimeout } from 'react-use';
 import LeftBar from '../components/LeftBar';
 import EmptyState from '../components/EmptyState';
 import Chat from '../components/Chat';
@@ -45,44 +44,51 @@ const layouts = {
 const Main = ({ params }) => {
   const router = useRouter();
   const leftBarRef = useRef();
-  const [isReady, cancel] = useTimeout(500);
   const [hasFetchedImages, setHasFetchedImages] = useState(false);
   const [streamersList, setStreamersList] = useState(params);
   const numberOfStreamers = streamersList.length;
   const selectableLayouts = layouts[`${numberOfStreamers}-players`];
   const selectedLayoutIndex = 0;
   const selectedLayout = selectableLayouts[selectedLayoutIndex];
-  const gridItems = isReady() ? streamersList.map((streamer, index) => (
-    <Box
-      // bg={['#0ff', '#f0f', '#00f'][index]}
-      key={streamer.broadcaster_login}
-      style={{
-        order: index,
-        flex: `${selectedLayout.values[index]}`,
-        height: index === 0 ? selectedLayout.heightPercentagePerRow[0] : selectedLayout.heightPercentagePerRow[1],
-      }}
-      id={streamer.broadcaster_login}
-      className="iframe-wrapper"
-      width="100%"
-    >
-      <TwitchEmbed
-        style={{ display: 'block', width: '100%' }}
-        channel={streamer.broadcaster_login}
-        id={streamer.broadcaster_login}
-        key={streamer.broadcaster_login}
-        theme="dark"
-        autoplay
-        withChat={false}
-        muted={index > 0}
-      />
-    </Box>
-  )) : '';
+  const [gridItems, setGridItems] = useState('');
 
   useEffect(() => {
     if (params) {
       setStreamersList(params);
     }
   }, [params]);
+
+  useEffect(() => {
+    if (streamersList.length && document) {
+      const items = streamersList.map((streamer, index) => (
+        <Box
+          // bg={['#0ff', '#f0f', '#00f'][index]}
+          key={streamer.broadcaster_login}
+          style={{
+            order: index,
+            flex: `${selectedLayout.values[index]}`,
+            height: index === 0 ? selectedLayout.heightPercentagePerRow[0] : selectedLayout.heightPercentagePerRow[1],
+          }}
+          id={streamer.broadcaster_login}
+          className="iframe-wrapper"
+          width="100%"
+        >
+          <TwitchEmbed
+            style={{ display: 'block', width: '100%' }}
+            channel={streamer.broadcaster_login}
+            id={streamer.broadcaster_login}
+            key={streamer.broadcaster_login}
+            theme="dark"
+            autoplay
+            withChat={false}
+            muted={index > 0}
+          />
+        </Box>
+      ));
+
+      setGridItems(items);
+    }
+  }, [streamersList]);
 
   useEffect(async () => {
     const loginNames = streamersList.map((streamer) => streamer.login || streamer.broadcaster_login);
@@ -184,17 +190,6 @@ const Main = ({ params }) => {
           )}
         </Flex>
       </HStack>
-      <TwitchEmbed
-        // this is a dummy component used to load all twitch resources before we add real streamers
-        style={{ display: 'none', width: '100%' }}
-        channel="tom"
-        id="tom"
-        key="tom"
-        theme="dark"
-        autoplay={false}
-        withChat={false}
-        muted
-      />
     </Box>
   );
 };
@@ -202,6 +197,7 @@ const Main = ({ params }) => {
 Main.getInitialProps = async function ({ query }) {
   return {
     params: (query.params || []).map((username) => ({
+      broadcaster_login: username,
       login: username,
     })),
   };
