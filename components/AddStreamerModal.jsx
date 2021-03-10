@@ -1,14 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   Modal, ModalOverlay, ModalContent, Avatar, Button, Input,
   Table, Tbody, Box, Tr, HStack, Td, Icon, Text,
 } from '@chakra-ui/react';
+
+const searchTwitchUsersByLoginName = async (query) => {
+  const response = await fetch(`https://api.twitch.tv/helix/search/channels?query=${query}`, {
+    method: 'GET',
+    headers: {
+      'client-id': 'oc2v6nbh3v12i5i5x8et8bo7amnu9o',
+      Authorization: 'Bearer ' + '0joge0i8si4qv6eifd9weoztm510cn',
+    },
+  });
+
+  return response.json();
+};
 
 const Main = ({
   isOpen, onOpen, onClose, setStreamersList, streamersList,
 }) => {
   const initialRef = React.useRef();
   const [searchResults, setSearchResult] = useState([]);
+  const onEnterPress = useCallback(async (event) => {
+    if (event.keyCode === 13 && initialRef.current) {
+      const query = initialRef.current.value;
+
+      if (!query) { return; }
+
+      const result = await searchTwitchUsersByLoginName(query);
+
+      setSearchResult(result.data);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('keydown', (e) => onEnterPress(e), false);
+
+    return () => {
+      document.removeEventListener('keydown', (e) => onEnterPress(e), false);
+    };
+  }, []);
 
   return (
     <>
@@ -24,10 +55,6 @@ const Main = ({
           borderRadius="sm"
           p="16px"
         >
-          {/* <ModalHeader>Search by Twitch username</ModalHeader> */}
-          {/* <ModalCloseButton mt="8px" mr="8px" /> */}
-          {/* <ModalBody> */}
-          {/* <FormControl> */}
           <Input
             mb="16px"
             bg="white"
@@ -36,9 +63,6 @@ const Main = ({
             ref={initialRef}
             placeholder="Twitch username"
           />
-          {/* </FormControl> */}
-          {/* </ModalBody> */}
-          {/* <ModalFooter> */}
           <Button
             w="100%"
             color="#9147ff"
@@ -47,22 +71,13 @@ const Main = ({
 
               if (!query) { return; }
 
-              const response = await fetch(`https://api.twitch.tv/helix/search/channels?query=${query}`, {
-                method: 'GET',
-                headers: {
-                  'client-id': 'oc2v6nbh3v12i5i5x8et8bo7amnu9o',
-                  Authorization: 'Bearer ' + '0joge0i8si4qv6eifd9weoztm510cn',
-                },
-              });
-
-              const result = await response.json();
+              const result = await searchTwitchUsersByLoginName(query);
 
               setSearchResult(result.data);
             }}
           >
             Search by Twitch username
           </Button>
-          {/* </ModalFooter> */}
           <Table
             mt={searchResults.length === 0 ? '0px' : '16px'}
             variant="simple"
