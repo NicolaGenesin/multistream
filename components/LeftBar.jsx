@@ -1,4 +1,7 @@
-import React, { forwardRef, useRef, useImperativeHandle } from 'react';
+import React, {
+  forwardRef, useEffect, useImperativeHandle, useState,
+} from 'react';
+import { useRouter } from 'next/router';
 import {
   AvatarBadge, Avatar, VStack, useDisclosure,
   useToast, Icon, Spacer, Link, Circle, Text, Box,
@@ -15,6 +18,13 @@ import {
 import {
   MdRotateRight,
 } from 'react-icons/md';
+import {
+  EmailShareButton, FacebookShareButton, LinkedinShareButton,
+  PinterestShareButton, RedditShareButton, TelegramShareButton,
+  TumblrShareButton, TwitterShareButton, WhatsappShareButton,
+  FacebookIcon, TwitterIcon, LinkedinIcon, PinterestIcon, TelegramIcon,
+  WhatsappIcon, RedditIcon, TumblrIcon, EmailIcon,
+} from 'react-share';
 import AddStreamerModal from './AddStreamerModal';
 import Triangle from './Triangle';
 
@@ -25,7 +35,9 @@ const Main = forwardRef(({
   selectedLayout,
 }, ref) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [shareURL, setShareURL] = useState('');
   const toast = useToast();
+  const router = useRouter();
 
   // this is ugly but prevents iframes from refreshing
   useImperativeHandle(ref, () => ({
@@ -33,6 +45,18 @@ const Main = forwardRef(({
       onOpen();
     },
   }));
+
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      setShareURL(`https://finddomainname.com${url}`);
+    };
+
+    router.events.on('routeChangeStart', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, []);
 
   return (
     <VStack
@@ -117,34 +141,68 @@ const Main = forwardRef(({
           />
         </Circle>
         {streamersList.length > 1 && (
-        <Circle
-          _hover={{ bg: '#555' }}
-          borderColor="#fff"
-          borderWidth="2px"
-          w={8}
-          h={8}
-          onClick={() => {
-            const wrappers = document.getElementsByClassName('iframe-wrapper');
+        <VStack>
+          <Circle
+            _hover={{ bg: '#555' }}
+            borderColor="#fff"
+            borderWidth="2px"
+            w={8}
+            h={8}
+            mb="16px"
+            onClick={() => {
+              const wrappers = document.getElementsByClassName('iframe-wrapper');
 
-            for (const wrapper of wrappers) {
-              const nextOrder = parseInt(wrapper.style.order) + 1;
-              if (nextOrder >= streamersList.length) {
-                nextOrder = 0;
+              for (const wrapper of wrappers) {
+                const nextOrder = parseInt(wrapper.style.order) + 1;
+                if (nextOrder >= streamersList.length) {
+                  nextOrder = 0;
+                }
+
+                wrapper.style.order = `${nextOrder}`;
+                wrapper.style.flex = `${selectedLayout.values[nextOrder]}`;
+                wrapper.style.height = nextOrder === 0
+                  ? `${selectedLayout.heightPercentagePerRow[0]}`
+                  : `${selectedLayout.heightPercentagePerRow[1]}`;
               }
-
-              wrapper.style.order = `${nextOrder}`;
-              wrapper.style.flex = `${selectedLayout.values[nextOrder]}`;
-              wrapper.style.height = nextOrder === 0
-                ? `${selectedLayout.heightPercentagePerRow[0]}`
-                : `${selectedLayout.heightPercentagePerRow[1]}`;
-            }
-          }}
-        >
-          <Icon
-            as={MdRotateRight}
+            }}
+          >
+            <Icon
+              as={MdRotateRight}
+              color="#fff"
+            />
+          </Circle>
+          <Text
+            letterSpacing="wider"
+            fontWeight="bold"
             color="#fff"
-          />
-        </Circle>
+            fontSize="9px"
+          >
+            SHARE
+          </Text>
+          <RedditShareButton
+            url={shareURL}
+            title={`${streamersList.map((streamer) => streamer.display_name).join(', ')} are streaming right now!`}
+            windowWidth={660}
+            windowHeight={460}
+          >
+            <RedditIcon size={32} round />
+          </RedditShareButton>
+          <TwitterShareButton
+            url={shareURL}
+          >
+            <TwitterIcon size={32} round />
+          </TwitterShareButton>
+          <WhatsappShareButton
+            url={shareURL}
+          >
+            <WhatsappIcon size={32} round />
+          </WhatsappShareButton>
+          <TelegramShareButton
+            url={shareURL}
+          >
+            <TelegramIcon size={32} round />
+          </TelegramShareButton>
+        </VStack>
         )}
       </VStack>
       <Spacer />
