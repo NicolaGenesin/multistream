@@ -169,6 +169,7 @@ const Main = ({ params }) => {
             )}
             {gridItems}
           </Flex>
+          {streamersList.length > 0 && (
           <Box
             id="chat-box"
             flex={chatFlex}
@@ -180,6 +181,7 @@ const Main = ({ params }) => {
               chatFlex={chatFlex}
             />
           </Box>
+          )}
         </Flex>
       </HStack>
       <TwitchEmbed
