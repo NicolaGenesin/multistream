@@ -62,7 +62,7 @@ const Main = ({ streamersList, chatFlex }) => {
           letterSpacing="wide"
           fontWeight="semibold"
           bg="white"
-          color="#772ce8"
+          color="#9147ff"
           onInput={(e) => {
             const streamerLogin = e.target.value;
             const streamer = streamersList.find((streamer) => streamer.broadcaster_login === streamerLogin);
@@ -85,7 +85,7 @@ const Main = ({ streamersList, chatFlex }) => {
             setChatState(false);
           }}
           aria-label="Close Chat"
-          color="#772ce8"
+          color="#9147ff"
           icon={<FiEyeOff />}
         />
       </HStack>

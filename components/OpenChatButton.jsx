@@ -15,11 +15,11 @@ const Main = ({ setChatState }) => (
     right="0"
     boxShadow="md"
     borderRadius="sm"
-    bg="#ddd"
+    bg="#fff"
     m="10px 15px"
   >
     <Button
-      color="#772ce8"
+      color="#9147ff"
       size="sm"
       leftIcon={<IoChatbubblesOutline />}
       onClick={() => {

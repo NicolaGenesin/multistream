@@ -32,7 +32,7 @@ const Main = ({
             mb="16px"
             bg="white"
             color="#333"
-            _focus={{ borderColor: '#772ce8' }}
+            _focus={{ borderColor: '#9147ff' }}
             ref={initialRef}
             placeholder="Twitch username"
           />
@@ -41,7 +41,7 @@ const Main = ({
           {/* <ModalFooter> */}
           <Button
             w="100%"
-            color="#772ce8"
+            color="#9147ff"
             onClick={async () => {
               const query = initialRef.current.value;
 
@@ -93,6 +93,7 @@ const Main = ({
                             />
                           </Box>
                           <Box
+                            letterSpacing="wide"
                             fontSize="sm"
                             fontWeight="semibold"
                           >
@@ -117,6 +118,7 @@ const Main = ({
                             <Text
                               mt="4px"
                               ml="-4px"
+                              letterSpacing="wide"
                               fontWeight="semibold"
                               fontSize="xs"
                             >

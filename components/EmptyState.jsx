@@ -22,7 +22,7 @@ const Main = ({ action }) => (
         <Button
           size="lg"
           w="100%"
-          color="#772ce8"
+          color="#9147ff"
           onClick={() => {
             action();
           }}

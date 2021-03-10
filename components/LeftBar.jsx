@@ -37,7 +37,7 @@ const Main = forwardRef(({
   return (
     <VStack
       h="100vh"
-      bg="#3b3b44"
+      bg="#333"
       pb="8px"
       pl="8px"
       pr="8px"
@@ -56,14 +56,14 @@ const Main = forwardRef(({
           w="30"
           h="20"
           direction="bottom"
-          color="#772ce8"
+          color="#9147ff"
         />
       </Box>
       {
           streamersList.map((currentStreamer, index) => (
             <Avatar
-              borderColor="#ddd"
-              borderWidth="2px"
+              borderColor="#fff"
+              borderWidth="0px"
               key={`${index}`}
               size="sm"
               name={currentStreamer.broadcaster_login}
@@ -78,7 +78,7 @@ const Main = forwardRef(({
                 }}
                 borderColor="#777"
                 bg="#777"
-                color="#ddd"
+                color="#fff"
                 boxSize="1em"
               >
                 <Icon
@@ -93,7 +93,7 @@ const Main = forwardRef(({
       >
         <Circle
           _hover={{ bg: '#555' }}
-          borderColor="#ddd"
+          borderColor="#fff"
           borderWidth="2px"
           w={8}
           h={8}
@@ -113,13 +113,13 @@ const Main = forwardRef(({
         >
           <Icon
             as={IoMdAdd}
-            color="#ddd"
+            color="#fff"
           />
         </Circle>
         {streamersList.length > 1 && (
         <Circle
           _hover={{ bg: '#555' }}
-          borderColor="#ddd"
+          borderColor="#fff"
           borderWidth="2px"
           w={8}
           h={8}
@@ -142,7 +142,7 @@ const Main = forwardRef(({
         >
           <Icon
             as={MdRotateRight}
-            color="#ddd"
+            color="#fff"
           />
         </Circle>
         )}
@@ -153,8 +153,10 @@ const Main = forwardRef(({
           className="verticalDiv"
         >
           <Text
-            color="#ddd"
+            color="#fff"
             fontSize="lg"
+            fontWeight="semibold"
+            letterSpacing="wide"
           >
             STREAMDASH.GG
           </Text>
@@ -166,8 +168,8 @@ const Main = forwardRef(({
           as={SiTwitch}
           w={6}
           h={6}
-          color="#ddd"
-          _hover={{ color: '#772ce8' }}
+          color="#fff"
+          _hover={{ color: '#9147ff' }}
         />
       </Link>
       <style jsx>
