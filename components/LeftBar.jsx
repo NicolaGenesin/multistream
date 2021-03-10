@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, useRef, useImperativeHandle } from 'react';
 import {
   AvatarBadge, Avatar, VStack, useDisclosure,
   useToast, Icon, Spacer, Link, Circle, Text, Box,
@@ -18,14 +18,21 @@ import {
 import AddStreamerModal from './AddStreamerModal';
 import Triangle from './Triangle';
 
-const Main = ({
+const Main = forwardRef(({
   streamersList,
   setStreamersList,
   maxNumberOfStreamers,
   selectedLayout,
-}) => {
+}, ref) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+
+  // this is ugly but prevents iframes from refreshing
+  useImperativeHandle(ref, () => ({
+    openModal() {
+      onOpen();
+    },
+  }));
 
   return (
     <VStack
@@ -45,7 +52,12 @@ const Main = ({
       <Box
         mb="16px"
       >
-        <Triangle w="30" h="20" direction="bottom" color="#772ce8" />
+        <Triangle
+          w="30"
+          h="20"
+          direction="bottom"
+          color="#772ce8"
+        />
       </Box>
       {
           streamersList.map((currentStreamer, index) => (
@@ -104,6 +116,7 @@ const Main = ({
             color="#ddd"
           />
         </Circle>
+        {streamersList.length > 1 && (
         <Circle
           _hover={{ bg: '#555' }}
           borderColor="#ddd"
@@ -132,6 +145,7 @@ const Main = ({
             color="#ddd"
           />
         </Circle>
+        )}
       </VStack>
       <Spacer />
       <Box mb="16px">
@@ -175,6 +189,6 @@ const Main = ({
       </style>
     </VStack>
   );
-};
+});
 
 export default Main;

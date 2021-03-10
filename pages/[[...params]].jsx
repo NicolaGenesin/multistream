@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import {
-  Box, Flex, HStack,
+  Box, Flex, HStack, Center, Button, VStack, Heading,
 } from '@chakra-ui/react';
 import {
   TwitchEmbed,
@@ -42,6 +42,7 @@ const layouts = {
 
 const Main = ({ params }) => {
   const router = useRouter();
+  const leftBarRef = useRef();
   const [isReady, cancel] = useTimeout(500);
   const [hasFetchedImages, setHasFetchedImages] = useState(false);
   const [streamersList, setStreamersList] = useState(params);
@@ -125,6 +126,7 @@ const Main = ({ params }) => {
         spacing={0}
       >
         <LeftBar
+          ref={leftBarRef}
           streamersList={streamersList}
           setStreamersList={setStreamersList}
           maxNumberOfStreamers={maxNumberOfStreamers}
@@ -139,6 +141,33 @@ const Main = ({ params }) => {
           justifyItems="flex-start"
           alignItems="flex-start"
         >
+          {!streamersList.length && (
+          <Center
+            w="100%"
+            h="100%"
+            color="white"
+          >
+            <VStack>
+              <Heading
+                mb="16px"
+              >
+                Watch multiple Twitch streams on the same page.
+              </Heading>
+              <Box>
+                <Button
+                  size="lg"
+                  w="100%"
+                  color="#772ce8"
+                  onClick={() => {
+                    leftBarRef.current.openModal();
+                  }}
+                >
+                  Add Streamer
+                </Button>
+              </Box>
+            </VStack>
+          </Center>
+          )}
           {gridItems}
         </Flex>
       </HStack>
