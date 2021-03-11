@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import {
   Modal, ModalOverlay, ModalContent, Avatar, Button, Input,
-  Table, Tbody, Box, Tr, HStack, Td, Icon, Text,
+  Table, Tbody, Box, Tr, HStack, Td, Icon, Text, Kbd,
 } from '@chakra-ui/react';
 
 const searchTwitchUsersByLoginName = async (query) => {
@@ -77,6 +77,10 @@ const Main = ({
             }}
           >
             Search by Twitch username
+            {' '}
+            <Box ml="8px">
+              <Kbd color="white" bg="#a56bfa">Enter</Kbd>
+            </Box>
           </Button>
           <Table
             mt={searchResults.length === 0 ? '0px' : '16px'}
