@@ -50,7 +50,7 @@ const Main = ({
       >
         <ModalOverlay />
         <ModalContent
-          bg="#5d5d6e"
+          bg="#333"
           color="white"
           borderRadius="sm"
           p="16px"
@@ -83,6 +83,7 @@ const Main = ({
             </Box>
           </Button>
           <Table
+            size="sm"
             mt={searchResults.length === 0 ? '0px' : '16px'}
             variant="simple"
             borderRadius="18px"
@@ -112,6 +113,7 @@ const Main = ({
                             />
                           </Box>
                           <Box
+                            color="#fff"
                             letterSpacing="wide"
                             fontSize="sm"
                             fontWeight="semibold"
@@ -135,10 +137,11 @@ const Main = ({
                           </Box>
                           <Box>
                             <Text
-                              mt="4px"
+                              // mt="4px"
                               ml="-4px"
                               letterSpacing="wide"
                               fontWeight="semibold"
+                              color="#eee"
                               fontSize="xs"
                             >
                               { result.is_live ? 'STREAMING' : 'OFFLINE' }
