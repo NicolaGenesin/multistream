@@ -26,7 +26,7 @@ const Main = ({ setChatState }) => (
         setChatState(true);
       }}
     >
-      See Twitch Chat
+      Chat
     </Button>
   </Box>
 );
