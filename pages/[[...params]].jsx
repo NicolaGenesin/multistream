@@ -172,7 +172,6 @@ const Main = ({ params }) => {
           selectedLayout={selectedLayout}
         />
         <Flex
-          bg="#f0f"
           h="100vh"
           w="100%"
         >
