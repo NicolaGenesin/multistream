@@ -6,6 +6,7 @@ import {
 import {
   TwitchEmbed,
 } from 'react-twitch-embed';
+import { useTimeout } from 'react-use';
 import LeftBar from '../components/LeftBar';
 import EmptyState from '../components/EmptyState';
 import Chat from '../components/Chat';
@@ -60,33 +61,47 @@ const Main = ({ params }) => {
 
   useEffect(() => {
     if (streamersList.length) {
-      const items = streamersList.map((streamer, index) => (
-        <Box
-          // bg={['#0ff', '#f0f', '#00f'][index]}
-          key={streamer.broadcaster_login}
-          style={{
-            order: index,
-            flex: `${selectedLayout.values[index]}`,
-            height: index === 0 ? selectedLayout.heightPercentagePerRow[0] : selectedLayout.heightPercentagePerRow[1],
-          }}
-          id={streamer.broadcaster_login}
-          className="iframe-wrapper"
-          width="100%"
-        >
-          <TwitchEmbed
-            style={{ display: 'block', width: '100%' }}
-            channel={streamer.broadcaster_login}
-            id={streamer.broadcaster_login}
+      const createAndSetGridItems = () => {
+        const items = streamersList.map((streamer, index) => (
+          <Box
+            // bg={['#0ff', '#f0f', '#00f'][index]}
             key={streamer.broadcaster_login}
-            theme="dark"
-            autoplay
-            withChat={false}
-            muted={index > 0}
-          />
-        </Box>
-      ));
+            style={{
+              order: index,
+              flex: `${selectedLayout.values[index]}`,
+              height: index === 0 ? selectedLayout.heightPercentagePerRow[0] : selectedLayout.heightPercentagePerRow[1],
+            }}
+            id={streamer.broadcaster_login}
+            className="iframe-wrapper"
+            width="100%"
+          >
+            <TwitchEmbed
+              style={{ display: 'block', width: '100%' }}
+              channel={streamer.broadcaster_login}
+              id={streamer.broadcaster_login}
+              key={streamer.broadcaster_login}
+              theme="dark"
+              autoplay
+              withChat={false}
+              muted={index > 0}
+            />
+          </Box>
+        ));
 
-      setGridItems(items);
+        setGridItems(items);
+      };
+
+      if (window.Twitch) {
+        console.log('[window.Twitch] Mounted');
+        createAndSetGridItems();
+      } else {
+        const waitMs = 1500;
+
+        setTimeout(() => {
+          console.log(`[window.Twitch] Not mounted, waiting ${waitMs}ms`);
+          createAndSetGridItems();
+        }, waitMs);
+      }
     } else {
       setGridItems('');
     }
