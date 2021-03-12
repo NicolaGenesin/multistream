@@ -24,7 +24,12 @@ import {
   RedditShareButton, TwitterShareButton, TwitterIcon, RedditIcon,
 } from 'react-share';
 import AddStreamerModal from './AddStreamerModal';
-import Triangle from './Triangle';
+
+const arrayRotate = (arr, reverse) => {
+  if (reverse) arr.unshift(arr.pop());
+  else arr.push(arr.shift());
+  return arr;
+};
 
 const Main = forwardRef(({
   streamersList,
@@ -33,6 +38,7 @@ const Main = forwardRef(({
   selectedLayout,
 }, ref) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [streamersOrderedbyUser, setStreamersOrderedbyUser] = useState(streamersList);
   const [shareURL, setShareURL] = useState('');
   const toast = useToast();
   const router = useRouter();
@@ -43,6 +49,10 @@ const Main = forwardRef(({
       onOpen();
     },
   }));
+
+  useEffect(() => {
+    setStreamersOrderedbyUser(streamersList);
+  }, [streamersList]);
 
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -58,8 +68,8 @@ const Main = forwardRef(({
 
   return (
     <VStack
+      bgGradient="linear(to-t, #9147ff55, #333)"
       h="100vh"
-      bgGradient="linear(to-t, #9147ffff, #333)"
       pb="8px"
       pl="8px"
       pr="8px"
@@ -75,38 +85,38 @@ const Main = forwardRef(({
         mb="16px"
       />
       {
-          streamersList.map((currentStreamer, index) => (
-            <Avatar
-              _hover={{
-                color: '#ffa502',
-                transform: 'scale(1.05)',
-                'box-shadow': '0 0 8px #888',
-              }}
-              borderColor="#fff"
-              borderWidth="0px"
-              key={`${index}`}
-              size="sm"
-              name={currentStreamer.broadcaster_login}
-              src={currentStreamer.thumbnail_url}
-            >
-              <AvatarBadge
-                onClick={() => {
-                  const filteredList = streamersList
-                    .filter((streamer) => streamer.broadcaster_login !== currentStreamer.broadcaster_login);
+        streamersOrderedbyUser.map((currentStreamer, index) => (
+          <Avatar
+            _hover={{
+              color: '#ffa502',
+              transform: 'scale(1.05)',
+              'box-shadow': '0 0 8px #888',
+            }}
+            borderColor="#fff"
+            borderWidth="0px"
+            key={`${index}`}
+            size="sm"
+            name={currentStreamer.broadcaster_login}
+            src={currentStreamer.thumbnail_url}
+          >
+            <AvatarBadge
+              onClick={() => {
+                const filteredList = streamersList
+                  .filter((streamer) => streamer.broadcaster_login !== currentStreamer.broadcaster_login);
 
-                  setStreamersList([...filteredList]);
-                }}
-                borderColor="#666"
-                bg="#666"
-                color="#fff"
-                boxSize="1em"
-              >
-                <Icon
-                  as={IoCloseOutline}
-                />
-              </AvatarBadge>
-            </Avatar>
-          ))
+                setStreamersList([...filteredList]);
+              }}
+              borderColor="#666"
+              bg="#666"
+              color="#fff"
+              boxSize="1em"
+            >
+              <Icon
+                as={IoCloseOutline}
+              />
+            </AvatarBadge>
+          </Avatar>
+        ))
       }
       <VStack
         pt={streamersList.length ? '16px' : '0px'}
@@ -168,6 +178,20 @@ const Main = forwardRef(({
                   ? `${selectedLayout.heightPercentagePerRow[0]}`
                   : `${selectedLayout.heightPercentagePerRow[1]}`;
               }
+
+              const updatedListOfStreamers = arrayRotate([...streamersOrderedbyUser], true);
+
+              setStreamersOrderedbyUser(updatedListOfStreamers);
+
+              // currently commented out because this is causing a new rerender on [[...params]] because of router.push
+              // I've already checked all hooks and nothing is printed there
+
+              // const loginNames = streamersOrderedbyUser.map((streamer) => streamer.login || streamer.broadcaster_login);
+              // const path = loginNames.join('/');
+
+              // router.push({
+              //   pathname: `/${path}`,
+              // }, undefined, { shallow: true });
             }}
           >
             <Icon
@@ -230,6 +254,7 @@ const Main = forwardRef(({
                   className="verticalDiv"
                 >
                   <Text
+                    ml="1px"
                     color="#fff"
                     fontSize="lg"
                     fontWeight="semibold"
@@ -281,7 +306,7 @@ const Main = forwardRef(({
           w={6}
           h={6}
           color="#fff"
-          _hover={{ color: '#9147ff' }}
+          _hover={{ color: '#ddd' }}
         />
       </Link>
       <style jsx>
