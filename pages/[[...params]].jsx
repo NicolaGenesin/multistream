@@ -234,10 +234,13 @@ const Main = ({ params }) => {
 
 Main.getInitialProps = async function ({ query }) {
   return {
-    params: (query.params || []).map((username) => ({
-      broadcaster_login: username,
-      login: username,
-    })),
+    params: (query.params || []).map((username) => {
+      const login = username.toLowerCase();
+      return {
+        broadcaster_login: login,
+        login,
+      };
+    }),
   };
 };
 
