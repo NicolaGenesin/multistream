@@ -185,6 +185,7 @@ const Main = ({ params }) => {
           >
             {!streamersList.length && (
             <EmptyState
+              setStreamersList={setStreamersList}
               action={leftBarRef.current && leftBarRef.current.openModal}
             />
             )}

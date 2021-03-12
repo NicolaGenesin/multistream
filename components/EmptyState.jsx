@@ -1,13 +1,17 @@
 import React from 'react';
-
 import {
   Box, Center, Button, VStack, Heading,
 } from '@chakra-ui/react';
+import TrendingStreamers from './TrendingStreamers';
 
-const Main = ({ action }) => (
+const Main = ({
+  action,
+  setStreamersList,
+}) => (
   <Center
     w="100%"
     h="100%"
+    pt="5%"
     color="white"
   >
     <VStack>
@@ -16,9 +20,9 @@ const Main = ({ action }) => (
         textAlign="center"
         p="16px"
       >
-        Watch multiple Twitch streams on the same page
+        Watch multiple Twitch streams on your screen
       </Heading>
-      <Box>
+      <Box mb="48px">
         <Button
           size="lg"
           w="100%"
@@ -30,6 +34,9 @@ const Main = ({ action }) => (
           Add Streamer
         </Button>
       </Box>
+      <TrendingStreamers
+        setStreamersList={setStreamersList}
+      />
     </VStack>
   </Center>
 );

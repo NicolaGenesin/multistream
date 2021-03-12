@@ -16,18 +16,18 @@ const App = ({ Component, pageProps }) => (
     <Head>
       <title>Multistream.gg</title>
       <link rel="icon" href="/favicon.ico" />
-      <meta name="description" content="Watch multiple Twitch streams on the same page! 🙌" />
+      <meta name="description" content="Watch multiple Twitch streams on your screen! 🙌" />
 
       {/* <!-- Google / Search Engine Tags --> */}
       <meta itemProp="name" content="Multistream.gg 🎮" />
-      <meta itemProp="description" content="Watch multiple Twitch streams on the same page! 🙌" />
+      <meta itemProp="description" content="Watch multiple Twitch streams on your screen! 🙌" />
       <meta itemProp="image" content="http://multistream.gg/assets/og-01.jpg" />
 
       {/* <!-- Facebook Meta Tags --> */}
       <meta property="og:url" content="https://multistream.gg/" />
       <meta property="og:type" content="website" />
       <meta property="og:title" content="Multistream.gg 🎮" />
-      <meta property="og:description" content="Watch multiple Twitch streams on the same page! 🙌" />
+      <meta property="og:description" content="Watch multiple Twitch streams on your screen! 🙌" />
       <meta name="og:image" content="https://multistream.gg/assets/og-01.jpg" />
 
       {/* <!-- Twitter Meta Tags --> */}
@@ -35,7 +35,7 @@ const App = ({ Component, pageProps }) => (
       <meta property="twitter:domain" content="Multistream.gg" />
       <meta property="twitter:url" content="https://multistream.gg/" />
       <meta name="twitter:title" content="Multistream.gg 🎮" />
-      <meta name="twitter:description" content="Watch multiple Twitch streams on the same page! 🙌" />
+      <meta name="twitter:description" content="Watch multiple Twitch streams on your screen! 🙌" />
       <meta name="twitter:image" content="https://multistream.gg/assets/og-01.jpg" />
     </Head>
     <Component {...pageProps} />
