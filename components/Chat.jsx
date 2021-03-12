@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useTimeout } from 'react-use';
 import { TwitchChat } from 'react-twitch-embed';
 import {
-  Select, Spacer, VStack, IconButton, HStack, Text,
+  Select, Spacer, VStack, HStack, Circle, Icon,
 } from '@chakra-ui/react';
 import {
   FiEyeOff,
@@ -79,15 +78,25 @@ const Main = ({ streamersList, chatFlex }) => {
             </option>
           ))}
         </Select>
-        <Spacer />
-        <IconButton
+        <Circle
+          _hover={{
+            color: '#ffa502',
+            transform: 'scale(1.05)',
+            'box-shadow': '0 0 8px #888',
+          }}
+          borderColor="#9147ff"
+          borderWidth="2px"
+          w={10}
+          h={10}
           onClick={() => {
             setChatState(false);
           }}
-          aria-label="Close Chat"
-          color="#9147ff"
-          icon={<FiEyeOff />}
-        />
+        >
+          <Icon
+            as={FiEyeOff}
+            color="#fff"
+          />
+        </Circle>
       </HStack>
     </VStack>
   );

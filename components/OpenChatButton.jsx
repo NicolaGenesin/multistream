@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  Box, Input, Button, Text, HStack, Spacer, Textarea,
+  Box, Circle, Icon,
 } from '@chakra-ui/react';
 import {
   IoChatbubblesOutline,
@@ -13,21 +13,31 @@ const Main = ({ setChatState }) => (
     position="fixed"
     bottom="0"
     right="0"
-    boxShadow="md"
-    borderRadius="sm"
-    bg="#fff"
-    m="10px 15px"
+    m="8px 8px"
   >
-    <Button
-      color="#9147ff"
-      size="sm"
-      leftIcon={<IoChatbubblesOutline />}
+    <Circle
+      boxShadow="dark-lg"
+      bg="#333"
+      _hover={{
+        color: '#ffa502',
+        transform: 'scale(1.05)',
+        'box-shadow': '0 0 8px #888',
+      }}
+      borderColor="#9147ff"
+      borderWidth="2px"
+      w={10}
+      h={10}
       onClick={() => {
         setChatState(true);
       }}
     >
-      Chat
-    </Button>
+      <Icon
+        w={5}
+        h={5}
+        as={IoChatbubblesOutline}
+        color="#fff"
+      />
+    </Circle>
   </Box>
 );
 
