@@ -6,7 +6,6 @@ import {
 import {
   TwitchEmbed,
 } from 'react-twitch-embed';
-import { useTimeout } from 'react-use';
 import LeftBar from '../components/LeftBar';
 import EmptyState from '../components/EmptyState';
 import Chat from '../components/Chat';
