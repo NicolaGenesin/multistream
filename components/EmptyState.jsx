@@ -16,13 +16,15 @@ const Main = ({
   >
     <VStack>
       <Heading
-        mb="16px"
+        mt="16px"
+        mb={['0px', '16px']}
         textAlign="center"
         p="16px"
+        fontSize={['lg', '4xl']}
       >
         Watch multiple Twitch streams on your screen
       </Heading>
-      <Box mb="48px">
+      <Box mb={['0px', '48px']}>
         <Button
           boxShadow="dark-lg"
           letterSpacing="wide"

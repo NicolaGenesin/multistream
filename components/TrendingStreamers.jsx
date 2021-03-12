@@ -23,7 +23,9 @@ const Main = ({ setStreamersList }) => {
   }, [trendingStreamers]);
 
   return (
-    <VStack>
+    <VStack
+      p="16px"
+    >
       <Heading
         pb="16px"
         size="sm"
@@ -56,7 +58,10 @@ const Main = ({ setStreamersList }) => {
             spacing="0"
             key={`${index}`}
           >
-            <Box h={['40px', '150px']} w="300px">
+            <Box
+              h={['40px', '150px']}
+              w={['auto', '300px']}
+            >
               <Image
                 borderRadius="8px 8px 0px 0px"
                 boxSize="100%"
