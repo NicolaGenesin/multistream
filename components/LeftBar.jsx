@@ -254,7 +254,6 @@ const Main = forwardRef(({
                   className="verticalDiv"
                 >
                   <Text
-                    ml="1px"
                     color="#fff"
                     fontSize="lg"
                     fontWeight="semibold"
@@ -294,7 +293,6 @@ const Main = forwardRef(({
                 1911z
               </Link>
               <br />
-              Email: 1911genesin at gmail.com
             </PopoverBody>
           </PopoverContent>
         </Popover>
