@@ -95,7 +95,7 @@ const Main = ({ params }) => {
         console.log('[window.Twitch] Mounted');
         createAndSetGridItems();
       } else {
-        const waitMs = 1500;
+        const waitMs = 2500;
 
         setTimeout(() => {
           console.log(`[window.Twitch] Not mounted, waiting ${waitMs}ms`);

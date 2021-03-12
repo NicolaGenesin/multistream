@@ -26,13 +26,27 @@ const Main = ({ streamersList, chatFlex }) => {
   }, [isChatOpen]);
 
   useEffect(() => {
-    if (streamer) {
+    const createTwitchChat = () => {
       setTwitchChat(<TwitchChat
         width="100%"
         height="100%"
         channel={streamer.broadcaster_login}
         theme="dark"
       />);
+    };
+
+    if (streamer) {
+      if (window.Twitch) {
+        console.log('[window.Twitch - Chat] Mounted');
+        createTwitchChat();
+      } else {
+        const waitMs = 2500;
+
+        setTimeout(() => {
+          console.log(`[window.Twitch - Chat] Not mounted, waiting ${waitMs}ms`);
+          createTwitchChat();
+        }, waitMs);
+      }
     }
   }, [streamer]);
 
