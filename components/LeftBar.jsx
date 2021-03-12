@@ -21,8 +21,7 @@ import {
   MdRotateRight,
 } from 'react-icons/md';
 import {
-  RedditShareButton, TelegramShareButton, TwitterShareButton, WhatsappShareButton,
-  TwitterIcon, TelegramIcon, WhatsappIcon, RedditIcon,
+  RedditShareButton, TwitterShareButton, TwitterIcon, RedditIcon,
 } from 'react-share';
 import AddStreamerModal from './AddStreamerModal';
 import Triangle from './Triangle';
@@ -60,7 +59,7 @@ const Main = forwardRef(({
   return (
     <VStack
       h="100vh"
-      bg="#333"
+      bgGradient="linear(to-t, #9147ffff, #333)"
       pb="8px"
       pl="8px"
       pr="8px"
@@ -74,17 +73,15 @@ const Main = forwardRef(({
       />
       <Box
         mb="16px"
-      >
-        <Triangle
-          w="30"
-          h="20"
-          direction="bottom"
-          color="#9147ff"
-        />
-      </Box>
+      />
       {
           streamersList.map((currentStreamer, index) => (
             <Avatar
+              _hover={{
+                color: '#ffa502',
+                transform: 'scale(1.05)',
+                'box-shadow': '0 0 8px #888',
+              }}
               borderColor="#fff"
               borderWidth="0px"
               key={`${index}`}
@@ -99,8 +96,8 @@ const Main = forwardRef(({
 
                   setStreamersList([...filteredList]);
                 }}
-                borderColor="#777"
-                bg="#777"
+                borderColor="#666"
+                bg="#666"
                 color="#fff"
                 boxSize="1em"
               >
@@ -115,8 +112,12 @@ const Main = forwardRef(({
         pt={streamersList.length ? '16px' : '0px'}
       >
         <Circle
-          _hover={{ bg: '#555' }}
-          borderColor="#fff"
+          _hover={{
+            color: '#ffa502',
+            transform: 'scale(1.05)',
+            'box-shadow': '0 0 8px #888',
+          }}
+          borderColor="#9147ff"
           borderWidth="2px"
           w={8}
           h={8}
@@ -142,8 +143,12 @@ const Main = forwardRef(({
         {streamersList.length > 1 && (
         <VStack>
           <Circle
-            _hover={{ bg: '#555' }}
-            borderColor="#fff"
+            _hover={{
+              color: '#ffa502',
+              transform: 'scale(1.05)',
+              'box-shadow': '0 0 8px #888',
+            }}
+            borderColor="#9147ff"
             borderWidth="2px"
             w={8}
             h={8}
@@ -175,6 +180,7 @@ const Main = forwardRef(({
             fontWeight="bold"
             color="#fff"
             fontSize="9px"
+            mb="8px"
           >
             SHARE
           </Text>
@@ -184,23 +190,25 @@ const Main = forwardRef(({
             windowWidth={660}
             windowHeight={460}
           >
-            <RedditIcon size={32} round />
+            <Circle
+              _hover={{
+                transform: 'scale(1.05)',
+              }}
+            >
+              <RedditIcon size={32} round />
+            </Circle>
           </RedditShareButton>
           <TwitterShareButton
             url={shareURL}
           >
-            <TwitterIcon size={32} round />
+            <Circle
+              _hover={{
+                transform: 'scale(1.05)',
+              }}
+            >
+              <TwitterIcon size={32} round />
+            </Circle>
           </TwitterShareButton>
-          <WhatsappShareButton
-            url={shareURL}
-          >
-            <WhatsappIcon size={32} round />
-          </WhatsappShareButton>
-          <TelegramShareButton
-            url={shareURL}
-          >
-            <TelegramIcon size={32} round />
-          </TelegramShareButton>
         </VStack>
         )}
       </VStack>
