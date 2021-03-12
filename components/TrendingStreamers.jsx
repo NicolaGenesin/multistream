@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useTimeout } from 'react-use';
-import { TwitchChat } from 'react-twitch-embed';
 import {
   Icon, Box, Image, Heading, HStack, Text, Spacer, VStack, Link,
 } from '@chakra-ui/react';
-import {
-  FiEyeOff,
-} from 'react-icons/fi';
-import OpenChatButton from './OpenChatButton';
 
-const Main = ({ setStreamersList, chatFlex }) => {
+const Main = ({ setStreamersList }) => {
   const [trendingStreamers, setTrendingStreamers] = useState([]);
 
   useEffect(async () => {
