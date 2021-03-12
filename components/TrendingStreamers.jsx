@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Icon, Box, Image, Heading, HStack, Text, Spacer, VStack, Link,
+  Icon, Box, Image, Heading, HStack, Text, Spacer, VStack, Link, Wrap,
 } from '@chakra-ui/react';
 
 const Main = ({ setStreamersList }) => {
@@ -27,6 +27,7 @@ const Main = ({ setStreamersList }) => {
       <Heading
         pb="16px"
         size="sm"
+        textAlign="center"
       >
         ...or check out the
         {' '}
@@ -34,7 +35,7 @@ const Main = ({ setStreamersList }) => {
         {' '}
         right now
       </Heading>
-      <HStack
+      <Wrap
         boxShadow="dark-lg"
         padding="16px"
         borderRadius="16px"
@@ -55,7 +56,7 @@ const Main = ({ setStreamersList }) => {
             spacing="0"
             key={`${index}`}
           >
-            <Box h="150px" w="300px">
+            <Box h={['40px', '150px']} w="300px">
               <Image
                 borderRadius="8px 8px 0px 0px"
                 boxSize="100%"
@@ -129,7 +130,7 @@ const Main = ({ setStreamersList }) => {
             </HStack>
           </VStack>
         ))}
-      </HStack>
+      </Wrap>
     </VStack>
   );
 };
