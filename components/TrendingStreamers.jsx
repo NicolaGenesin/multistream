@@ -36,11 +36,14 @@ const Main = ({ setStreamersList, chatFlex }) => {
       >
         ...or check out the
         {' '}
-        <Link href={`https://multistream.gg/${trendingStreamers.map((streamer) => streamer.user_login).join('/')}`}>top 3 online streamers</Link>
+        <Link href={`https://multistream.gg/${trendingStreamers.map((streamer) => streamer.user_login).join('/')}`}>Top 3 streamers online</Link>
+        {' '}
+        right now
       </Heading>
       <HStack
+        boxShadow="dark-lg"
         padding="16px"
-        borderRadius="14px"
+        borderRadius="16px"
         borderWidth="2px"
         borderColor="#9147ff22"
         spacing="16px"
@@ -53,21 +56,21 @@ const Main = ({ setStreamersList, chatFlex }) => {
       >
         {trendingStreamers.map((streamer, index) => (
           <VStack
-            boxShadow="dark-lg"
-            spacing="0"
             bg="#333"
+            borderRadius="8px"
+            spacing="0"
             key={`${index}`}
           >
             <Box h="150px" w="300px">
               <Image
-                borderRadius="4px 4px 0px 0px"
+                borderRadius="8px 8px 0px 0px"
                 boxSize="100%"
                 objectFit="cover"
                 src={`${streamer.thumbnail_url.replace('{width}x{height}', '1280x720')}`}
               />
             </Box>
             <HStack
-              pt="4px"
+              pt="8px"
               pr="4px"
               w="100%"
             >
@@ -96,48 +99,39 @@ const Main = ({ setStreamersList, chatFlex }) => {
               </VStack>
             </HStack>
             <HStack
-              borderRadius="0px 0px 4px 4px"
               pr="4px"
               w="100%"
             >
               <Spacer />
-              <VStack
-                textAlign="right"
+              <Text
+                mr="4px"
+                fontSize="xs"
+                fontWeight="semibold"
+                letterSpacing="wide"
+                color="#999"
               >
-                <Text
-                  mr="4px"
-                  fontSize="xs"
-                  fontWeight="semibold"
-                  letterSpacing="wide"
-                  color="#999"
-                >
-                  Streaming
-                  {' '}
-                  {streamer.game_name}
-                </Text>
-              </VStack>
+                Streaming
+                {' '}
+                {streamer.game_name}
+              </Text>
             </HStack>
             <HStack
               pr="4px"
-              pb="4px"
+              pb="8px"
               w="100%"
             >
               <Spacer />
-              <VStack
-                textAlign="right"
+              <Text
+                mr="4px"
+                fontSize="xs"
+                fontWeight="semibold"
+                letterSpacing="wide"
+                color="#999"
               >
-                <Text
-                  mr="4px"
-                  fontSize="xs"
-                  fontWeight="semibold"
-                  letterSpacing="wide"
-                  color="#999"
-                >
-                  Viewers:
-                  {' '}
-                  {streamer.viewer_count}
-                </Text>
-              </VStack>
+                Viewers:
+                {' '}
+                {streamer.viewer_count}
+              </Text>
             </HStack>
           </VStack>
         ))}

@@ -24,6 +24,8 @@ const Main = ({
       </Heading>
       <Box mb="48px">
         <Button
+          boxShadow="dark-lg"
+          letterSpacing="wide"
           size="lg"
           w="100%"
           color="#9147ff"
