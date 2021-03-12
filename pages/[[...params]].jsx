@@ -64,7 +64,7 @@ const Main = ({ params }) => {
       const createAndSetGridItems = () => {
         const items = streamersList.map((streamer, index) => (
           <Box
-            // bg={['#0ff', '#f0f', '#00f'][index]}
+            // bg={['#0ff', '#f0f', '#00f', '#f00'][index]}
             key={streamer.broadcaster_login}
             style={{
               order: index,
@@ -75,6 +75,7 @@ const Main = ({ params }) => {
             className="iframe-wrapper"
             width="100%"
           >
+            {/* {streamer.broadcaster_login} */}
             <TwitchEmbed
               style={{ display: 'block', width: '100%' }}
               channel={streamer.broadcaster_login}
@@ -160,7 +161,7 @@ const Main = ({ params }) => {
   const chatFlex = 3;
 
   return (
-    <Box>
+    <div className="backgroundLayout">
       <HStack
         spacing={0}
       >
@@ -176,7 +177,6 @@ const Main = ({ params }) => {
           w="100%"
         >
           <Flex
-            bg="#18161a"
             h="100%"
             flex={streamsFlex}
             flexDirection="row"
@@ -206,7 +206,29 @@ const Main = ({ params }) => {
           )}
         </Flex>
       </HStack>
-    </Box>
+      <style jsx>
+        {`
+          .backgroundLayout {
+            background: linear-gradient(45deg, #111, #47237d, #111, #42118c);
+            background-size: 600% 600%;
+            animation: gradient 15s ease infinite;
+          }
+
+          @keyframes gradient {
+            0% {
+              background-position: 0% 50%;
+            }
+            50% {
+              background-position: 100% 50%;
+            }
+            100% {
+              background-position: 0% 50%;
+            }
+          }
+        `}
+
+      </style>
+    </div>
   );
 };
 
