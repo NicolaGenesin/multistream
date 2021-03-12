@@ -22,12 +22,14 @@ const App = ({ Component, pageProps }) => (
       <meta property="og:type" content="website" />
       <meta property="og:title" content="Multistream" />
       <meta property="og:description" content="Find and watch multiple Twitch streams on the same screen." />
+      <meta name="og:image" content="https://multistream.gg/assets/og-01.jpg" />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta property="twitter:domain" content="multistream.gg" />
       <meta property="twitter:url" content="https://multistream.gg/" />
       <meta name="twitter:title" content="Multistream" />
       <meta name="twitter:description" content="Find and watch multiple Twitch streams on the same screen." />
+      <meta name="twitter:image" content="https://multistream.gg/assets/og-01.jpg" />
     </Head>
     <Component {...pageProps} />
     <style global jsx>
