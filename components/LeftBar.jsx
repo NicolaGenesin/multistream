@@ -9,9 +9,6 @@ import {
   PopoverBody, PopoverArrow, PopoverCloseButton,
 } from '@chakra-ui/react';
 import {
-  SiTwitch,
-} from 'react-icons/si';
-import {
   IoMdAdd, IoMdInformationCircleOutline,
 } from 'react-icons/io';
 import {
@@ -297,16 +294,6 @@ const Main = forwardRef(({
           </PopoverContent>
         </Popover>
       </Box>
-      <Link href="https://www.twitch.tv/" isExternal>
-        <Icon
-          mb="4px"
-          as={SiTwitch}
-          w={6}
-          h={6}
-          color="#fff"
-          _hover={{ color: '#ddd' }}
-        />
-      </Link>
       <style jsx>
         {
         `.verticalDiv {
