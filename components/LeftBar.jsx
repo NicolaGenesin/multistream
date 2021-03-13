@@ -2,6 +2,7 @@ import React, {
   forwardRef, useEffect, useImperativeHandle, useState,
 } from 'react';
 import { useRouter } from 'next/router';
+import { isMobile } from 'react-device-detect';
 import {
   AvatarBadge, Avatar, VStack, useDisclosure,
   useToast, Icon, Spacer, Link, Circle, Text, Box, Center,
@@ -66,7 +67,7 @@ const Main = forwardRef(({
   return (
     <VStack
       bgGradient="linear(to-t, #9147ff55, #333)"
-      h="100vh"
+      h={isMobile ? '100%' : '100vh'}
       pb="8px"
       pl="8px"
       pr="8px"

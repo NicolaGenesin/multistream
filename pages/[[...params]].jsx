@@ -6,6 +6,7 @@ import {
 import {
   TwitchEmbed,
 } from 'react-twitch-embed';
+import { isMobile } from 'react-device-detect';
 import LeftBar from '../components/LeftBar';
 import EmptyState from '../components/EmptyState';
 import Chat from '../components/Chat';
@@ -164,13 +165,15 @@ const Main = ({ params }) => {
       <HStack
         spacing={0}
       >
-        <LeftBar
-          ref={leftBarRef}
-          streamersList={streamersList}
-          setStreamersList={setStreamersList}
-          maxNumberOfStreamers={maxNumberOfStreamers}
-          selectedLayout={selectedLayout}
-        />
+        <div className={isMobile ? 'leftBarMobile' : ''}>
+          <LeftBar
+            ref={leftBarRef}
+            streamersList={streamersList}
+            setStreamersList={setStreamersList}
+            maxNumberOfStreamers={maxNumberOfStreamers}
+            selectedLayout={selectedLayout}
+          />
+        </div>
         <Flex
           h="100vh"
           w="100%"
@@ -191,7 +194,7 @@ const Main = ({ params }) => {
             )}
             {gridItems}
           </Flex>
-          {streamersList.length > 0 && (
+          {(streamersList.length > 0 && !isMobile) && (
           <Box
             id="chat-box"
             flex={chatFlex}
@@ -208,6 +211,12 @@ const Main = ({ params }) => {
       </HStack>
       <style jsx>
         {`
+          .leftBarMobile {
+            height: 100vh;
+            overflow-y: scroll;
+            float: left;
+          }
+
           .backgroundLayout {
             background: linear-gradient(45deg, #111, #47237d, #111, #42118c);
             background-size: 600% 600%;
