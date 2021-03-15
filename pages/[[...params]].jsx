@@ -64,7 +64,7 @@ const Main = ({ params }) => {
       const createAndSetGridItems = () => {
         const items = streamersList.map((streamer, index) => (
           <Box
-            // bg={['#0ff', '#f0f', '#00f', '#f00'][index]}
+            // bg={['#555', '#999', '#777', '#222'][index]}
             key={streamer.broadcaster_login}
             style={{
               order: index,
