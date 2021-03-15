@@ -55,6 +55,14 @@ const Main = forwardRef(({
   useEffect(() => {
     const handleRouteChange = (url) => {
       setShareURL(`https://multistream.gg${url}`);
+
+      try {
+        console.log(`[GA] Send ${url} pageview`);
+        ga('set', 'page', url);
+        ga('send', 'pageview');
+      } catch (error) {
+        console.log('[GA] Failed (handleRouteChange)');
+      }
     };
 
     router.events.on('routeChangeStart', handleRouteChange);
