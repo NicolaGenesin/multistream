@@ -52,9 +52,16 @@ const Main = ({ streamersList, chatFlex }) => {
 
   if (!isChatOpen) {
     return (
-      <OpenChatButton
-        setChatState={setChatState}
-      />
+      <VStack
+        p="8px"
+        h="100vh"
+        bgGradient="linear(to-t, #9147ff55, #333)"
+      >
+        <Spacer />
+        <OpenChatButton
+          setChatState={setChatState}
+        />
+      </VStack>
     );
   }
 
@@ -94,9 +101,11 @@ const Main = ({ streamersList, chatFlex }) => {
         </Select>
         <Circle
           _hover={{
-            color: '#ffa502',
-            transform: 'scale(1.05)',
-            'box-shadow': '0 0 8px #888',
+            transform: 'translate(8%, -2%)',
+            'box-shadow': '-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff',
+          }}
+          style={{
+            transition: '0.2s ease',
           }}
           borderColor="#9147ff"
           borderWidth="2px"

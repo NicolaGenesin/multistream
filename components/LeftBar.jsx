@@ -86,9 +86,11 @@ const Main = forwardRef(({
         streamersOrderedbyUser.map((currentStreamer, index) => (
           <Avatar
             _hover={{
-              color: '#ffa502',
-              transform: 'scale(1.05)',
-              'box-shadow': '0 0 8px #888',
+              transform: 'translate(8%, -2%)',
+              'box-shadow': '-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff',
+            }}
+            style={{
+              transition: '0.2s ease',
             }}
             borderColor="#fff"
             borderWidth="0px"
@@ -119,11 +121,63 @@ const Main = forwardRef(({
       <VStack
         pt={streamersList.length ? '16px' : '0px'}
       >
+        {streamersList.length > 1 && (
         <Circle
           _hover={{
-            color: '#ffa502',
-            transform: 'scale(1.05)',
-            'box-shadow': '0 0 8px #888',
+            transform: 'translate(8%, -2%)',
+            'box-shadow': '-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff',
+          }}
+          style={{
+            transition: '0.2s ease',
+          }}
+          borderColor="#9147ff"
+          borderWidth="2px"
+          w={8}
+          h={8}
+          onClick={() => {
+            const wrappers = document.getElementsByClassName('iframe-wrapper');
+
+            for (const wrapper of wrappers) {
+              const nextOrder = parseInt(wrapper.style.order) + 1;
+              if (nextOrder >= streamersList.length) {
+                nextOrder = 0;
+              }
+
+              wrapper.style.order = `${nextOrder}`;
+              wrapper.style.flex = `${selectedLayout.values[nextOrder]}`;
+              wrapper.style.height = nextOrder === 0
+                ? `${selectedLayout.heightPercentagePerRow[0]}`
+                : `${selectedLayout.heightPercentagePerRow[1]}`;
+            }
+
+            const updatedListOfStreamers = arrayRotate([...streamersOrderedbyUser], true);
+
+            setStreamersOrderedbyUser(updatedListOfStreamers);
+
+            // currently commented out because this is causing a new rerender on [[...params]] because of router.push
+            // I've already checked all hooks and nothing is printed there
+
+            // const loginNames = streamersOrderedbyUser.map((streamer) => streamer.login || streamer.broadcaster_login);
+            // const path = loginNames.join('/');
+
+            // router.push({
+            //   pathname: `/${path}`,
+            // }, undefined, { shallow: true });
+          }}
+        >
+          <Icon
+            as={MdRotateRight}
+            color="#fff"
+          />
+        </Circle>
+        )}
+        <Circle
+          _hover={{
+            transform: 'translate(8%, -2%)',
+            'box-shadow': '-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff',
+          }}
+          style={{
+            transition: '0.2s ease',
           }}
           borderColor="#9147ff"
           borderWidth="2px"
@@ -149,54 +203,7 @@ const Main = forwardRef(({
           />
         </Circle>
         {streamersList.length > 1 && (
-        <VStack>
-          <Circle
-            _hover={{
-              color: '#ffa502',
-              transform: 'scale(1.05)',
-              'box-shadow': '0 0 8px #888',
-            }}
-            borderColor="#9147ff"
-            borderWidth="2px"
-            w={8}
-            h={8}
-            mb="16px"
-            onClick={() => {
-              const wrappers = document.getElementsByClassName('iframe-wrapper');
-
-              for (const wrapper of wrappers) {
-                const nextOrder = parseInt(wrapper.style.order) + 1;
-                if (nextOrder >= streamersList.length) {
-                  nextOrder = 0;
-                }
-
-                wrapper.style.order = `${nextOrder}`;
-                wrapper.style.flex = `${selectedLayout.values[nextOrder]}`;
-                wrapper.style.height = nextOrder === 0
-                  ? `${selectedLayout.heightPercentagePerRow[0]}`
-                  : `${selectedLayout.heightPercentagePerRow[1]}`;
-              }
-
-              const updatedListOfStreamers = arrayRotate([...streamersOrderedbyUser], true);
-
-              setStreamersOrderedbyUser(updatedListOfStreamers);
-
-              // currently commented out because this is causing a new rerender on [[...params]] because of router.push
-              // I've already checked all hooks and nothing is printed there
-
-              // const loginNames = streamersOrderedbyUser.map((streamer) => streamer.login || streamer.broadcaster_login);
-              // const path = loginNames.join('/');
-
-              // router.push({
-              //   pathname: `/${path}`,
-              // }, undefined, { shallow: true });
-            }}
-          >
-            <Icon
-              as={MdRotateRight}
-              color="#fff"
-            />
-          </Circle>
+        <VStack pt="16px">
           <Text
             letterSpacing="wider"
             fontWeight="bold"
@@ -214,7 +221,11 @@ const Main = forwardRef(({
           >
             <Circle
               _hover={{
-                transform: 'scale(1.05)',
+                transform: 'translate(8%, -2%)',
+                'box-shadow': '-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff',
+              }}
+              style={{
+                transition: '0.2s ease',
               }}
             >
               <RedditIcon size={32} round />
@@ -225,7 +236,11 @@ const Main = forwardRef(({
           >
             <Circle
               _hover={{
-                transform: 'scale(1.05)',
+                transform: 'translate(8%, -2%)',
+                'box-shadow': '-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff',
+              }}
+              style={{
+                transition: '0.2s ease',
               }}
             >
               <TwitterIcon size={32} round />

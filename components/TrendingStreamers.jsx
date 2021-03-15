@@ -59,8 +59,8 @@ const Main = ({ setStreamersList }) => {
             key={`${index}`}
           >
             <Box
-              h={['40px', '150px']}
-              w={['auto', '300px']}
+              h={['40px', '110px']}
+              w={['auto', '220px']}
             >
               <Image
                 borderRadius="8px 8px 0px 0px"
