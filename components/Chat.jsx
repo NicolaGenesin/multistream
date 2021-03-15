@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { TwitchChat } from 'react-twitch-embed';
 import {
-  Select, Spacer, VStack, HStack, Circle, Icon,
+  Select, Spacer, VStack, HStack, Text, Button,
 } from '@chakra-ui/react';
 import {
-  FiEyeOff,
-} from 'react-icons/fi';
+  IoCloseOutline,
+} from 'react-icons/io5';
 import OpenChatButton from './OpenChatButton';
 
 const Main = ({ streamersList, chatFlex }) => {
@@ -57,7 +57,6 @@ const Main = ({ streamersList, chatFlex }) => {
         h="100vh"
         bgGradient="linear(to-t, #9147ff55, #333)"
       >
-        <Spacer />
         <OpenChatButton
           setChatState={setChatState}
         />
@@ -67,22 +66,51 @@ const Main = ({ streamersList, chatFlex }) => {
 
   return (
     <VStack
-      bg="#333"
+      bg="#18181b"
       w="100%"
       h="100%"
     >
-      {twitchChat}
-      <HStack
+      <VStack
         w="100%"
-        pb="8px"
+        pt="8px"
         pl="8px"
         pr="8px"
       >
+        <HStack
+          mt="8px"
+          w="100%"
+        >
+          <Text
+            fontSize="15px"
+            fontWeight="bolder"
+            letterSpacing="wide"
+            color="#fff"
+            w="100%"
+          >
+            Current Streamer Chat
+          </Text>
+          <Button
+            _hover={{ bg: '#772ce7' }}
+            onClick={() => {
+              setChatState(false);
+            }}
+            size="xs"
+            fontWeight="bolder"
+            bg="#9147fe"
+            icon={<IoCloseOutline />}
+            color="#fff"
+          >
+            Close
+          </Button>
+        </HStack>
         <Select
+          size="md"
           letterSpacing="wide"
           fontWeight="semibold"
-          bg="white"
-          color="#9147ff"
+          fontSize="15px"
+          bg="#ffffff33"
+          borderColor="#555"
+          color="#fff"
           onInput={(e) => {
             const streamerLogin = e.target.value;
             const streamer = streamersList.find((streamer) => streamer.broadcaster_login === streamerLogin);
@@ -99,28 +127,8 @@ const Main = ({ streamersList, chatFlex }) => {
             </option>
           ))}
         </Select>
-        <Circle
-          _hover={{
-            transform: 'translate(8%, -2%)',
-            'box-shadow': '-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff',
-          }}
-          style={{
-            transition: '0.2s ease',
-          }}
-          borderColor="#9147ff"
-          borderWidth="2px"
-          w={10}
-          h={10}
-          onClick={() => {
-            setChatState(false);
-          }}
-        >
-          <Icon
-            as={FiEyeOff}
-            color="#fff"
-          />
-        </Circle>
-      </HStack>
+      </VStack>
+      {twitchChat}
     </VStack>
   );
 };
