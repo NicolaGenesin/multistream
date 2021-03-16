@@ -16,6 +16,9 @@ import {
   IoCloseOutline,
 } from 'react-icons/io5';
 import {
+  BsLayoutWtf,
+} from 'react-icons/bs';
+import {
   MdRotateRight,
 } from 'react-icons/md';
 import {
@@ -33,13 +36,14 @@ const Main = forwardRef(({
   streamersList,
   setStreamersList,
   maxNumberOfStreamers,
-  selectedLayout,
+  selectableLayouts,
+  router,
 }, ref) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [streamersOrderedbyUser, setStreamersOrderedbyUser] = useState(streamersList);
   const [shareURL, setShareURL] = useState('');
+  const [selectedLayoutIndex, setSelectedLayoutIndex] = useState(0);
   const toast = useToast();
-  const router = useRouter();
 
   // this is ugly but prevents iframes from refreshing
   useImperativeHandle(ref, () => ({
@@ -50,6 +54,17 @@ const Main = forwardRef(({
 
   useEffect(() => {
     setStreamersOrderedbyUser(streamersList);
+    setSelectedLayoutIndex(0);
+
+    const newSelectedLayout = selectableLayouts[0];
+    const wrappers = document.getElementsByClassName('iframe-wrapper');
+
+    for (const wrapper of wrappers) {
+      const currentOrder = parseInt(wrapper.style.order);
+
+      wrapper.style.flex = `${newSelectedLayout.xvalues[currentOrder]}`;
+      wrapper.style.height = `${newSelectedLayout.yvalues[currentOrder]}`;
+    }
   }, [streamersList]);
 
   useEffect(() => {
@@ -130,54 +145,90 @@ const Main = forwardRef(({
         pt={streamersList.length ? '16px' : '0px'}
       >
         {streamersList.length > 1 && (
-        <Circle
-          _hover={{
-            transform: 'translate(8%, -2%)',
-            'box-shadow': '-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff',
-          }}
-          style={{
-            transition: '0.2s ease',
-          }}
-          borderColor="#9147ff"
-          borderWidth="2px"
-          w={8}
-          h={8}
-          onClick={() => {
-            const wrappers = document.getElementsByClassName('iframe-wrapper');
+          <VStack>
+            <Circle
+              _hover={{
+                transform: 'translate(8%, -2%)',
+                'box-shadow': '-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff',
+              }}
+              style={{
+                transition: '0.2s ease',
+              }}
+              borderColor="#9147ff"
+              borderWidth="2px"
+              w={8}
+              h={8}
+              onClick={() => {
+                const wrappers = document.getElementsByClassName('iframe-wrapper');
+                const selectedLayout = selectableLayouts[selectedLayoutIndex];
 
-            for (const wrapper of wrappers) {
-              const nextOrder = parseInt(wrapper.style.order) + 1;
-              if (nextOrder >= streamersList.length) {
-                nextOrder = 0;
-              }
+                for (const wrapper of wrappers) {
+                  const nextOrder = parseInt(wrapper.style.order) + 1;
+                  if (nextOrder >= streamersList.length) {
+                    nextOrder = 0;
+                  }
 
-              wrapper.style.order = `${nextOrder}`;
-              wrapper.style.flex = `${selectedLayout.values[nextOrder]}`;
-              wrapper.style.height = nextOrder === 0
-                ? `${selectedLayout.heightPercentagePerRow[0]}`
-                : `${selectedLayout.heightPercentagePerRow[1]}`;
-            }
+                  wrapper.style.order = `${nextOrder}`;
+                  wrapper.style.flex = `${selectedLayout.xvalues[nextOrder]}`;
+                  wrapper.style.height = `${selectedLayout.yvalues[nextOrder]}`;
+                }
 
-            const updatedListOfStreamers = arrayRotate([...streamersOrderedbyUser], true);
+                const updatedListOfStreamers = arrayRotate([...streamersOrderedbyUser], true);
 
-            setStreamersOrderedbyUser(updatedListOfStreamers);
+                setStreamersOrderedbyUser(updatedListOfStreamers);
 
-            // currently commented out because this is causing a new rerender on [[...params]] because of router.push
-            // I've already checked all hooks and nothing is printed there
+                const loginNames = updatedListOfStreamers
+                  .map((streamer) => streamer.login || streamer.broadcaster_login);
+                const path = loginNames.join('/');
 
-            // const loginNames = streamersOrderedbyUser.map((streamer) => streamer.login || streamer.broadcaster_login);
-            // const path = loginNames.join('/');
+                router.push({
+                  pathname: `/${path}`,
+                }, undefined, { shallow: true });
+              }}
+            >
+              <Icon
+                as={MdRotateRight}
+                color="#fff"
+              />
+            </Circle>
+            <Circle
+              _hover={{
+                transform: 'translate(8%, -2%)',
+                'box-shadow': '-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff',
+              }}
+              style={{
+                transition: '0.2s ease',
+              }}
+              borderColor="#9147ff"
+              borderWidth="2px"
+              w={8}
+              h={8}
+              onClick={() => {
+                let newSelectedLayoutIndex = selectedLayoutIndex + 1;
 
-            // router.push({
-            //   pathname: `/${path}`,
-            // }, undefined, { shallow: true });
-          }}
-        >
-          <Icon
-            as={MdRotateRight}
-            color="#fff"
-          />
-        </Circle>
+                if (newSelectedLayoutIndex > selectableLayouts.length - 1) {
+                  newSelectedLayoutIndex = 0;
+                }
+
+                setSelectedLayoutIndex(newSelectedLayoutIndex);
+
+                const wrappers = document.getElementsByClassName('iframe-wrapper');
+                const newSelectedLayout = selectableLayouts[newSelectedLayoutIndex];
+
+                for (const wrapper of wrappers) {
+                  const currentOrder = parseInt(wrapper.style.order);
+
+                  wrapper.style.flex = `${newSelectedLayout.xvalues[currentOrder]}`;
+                  wrapper.style.height = `${newSelectedLayout.yvalues[currentOrder]}`;
+                }
+              }}
+            >
+              <Icon
+                as={BsLayoutWtf}
+                color="#fff"
+              />
+            </Circle>
+          </VStack>
         )}
         <Circle
           _hover={{

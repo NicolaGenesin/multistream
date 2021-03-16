@@ -11,33 +11,96 @@ import LeftBar from '../components/LeftBar';
 import EmptyState from '../components/EmptyState';
 import Chat from '../components/Chat';
 
-const maxNumberOfStreamers = 4;
+const maxNumberOfStreamers = 6;
 const layouts = {
-  '0-players': {
-
-  },
+  '0-players': [
+    {
+      xvalues: ['100%'],
+      yvalues: ['100%'],
+    },
+  ],
   '1-players': [
     {
-      values: ['100%'],
-      heightPercentagePerRow: ['100%', '100%'],
+      xvalues: ['100%'],
+      yvalues: ['100%'],
+    },
+    {
+      xvalues: ['100%'],
+      yvalues: ['100%'],
+    },
+    {
+      xvalues: ['100%'],
+      yvalues: ['100%'],
     },
   ],
   '2-players': [
     {
-      values: ['100%', '100%'],
-      heightPercentagePerRow: ['60%', '40%'],
+      xvalues: ['100%', '100%'],
+      yvalues: ['60%', '40%'],
+    },
+    {
+      xvalues: ['100%', '100%'],
+      yvalues: ['70%', '30%'],
+    },
+    {
+      xvalues: ['100%', '100%'],
+      yvalues: ['50%', '50%'],
     },
   ],
   '3-players': [
     {
-      values: ['100%', '50%', '50%'],
-      heightPercentagePerRow: ['60%', '40%'],
+      xvalues: ['100%', '50%', '50%'],
+      yvalues: ['50%', '50%', '50%'],
+    },
+    {
+      xvalues: ['100%', '50%', '50%'],
+      yvalues: ['70%', '30%', '30%'],
+    },
+    {
+      xvalues: ['100%', '100%', '100%'],
+      yvalues: ['33.3333%', '33.3333%', '33.3333%'],
     },
   ],
   '4-players': [
     {
-      values: ['90%', '30%', '30%', '30%'],
-      heightPercentagePerRow: ['60%', '40%'],
+      xvalues: ['100%', '30%', '30%', '30%'],
+      yvalues: ['60%', '40%', '40%', '40%'],
+    },
+    {
+      xvalues: ['50%', '50%', '50%', '50%'],
+      yvalues: ['50%', '50%', '50%', '50%'],
+    },
+    {
+      xvalues: ['100%', '50%', '50%', '100%'],
+      yvalues: ['33.3333%', '33.3333%', '33.3333%', '33.3333%'],
+    },
+  ],
+  '5-players': [
+    {
+      xvalues: ['100%', '33.3333%', '33.3333%', '33.3333%', '100%'],
+      yvalues: ['33.3333%', '33.3333%', '33.3333%', '33.3333%', '33.3333%'],
+    },
+    {
+      xvalues: ['100%', '25%', '25%', '25%', '25%'],
+      yvalues: ['60%', '40%', '40%', '40%', '40%'],
+    },
+    {
+      xvalues: ['100%', '50%', '50%', '50%', '50%'],
+      yvalues: ['33.3333%', '33.3333%', '33.3333%', '33.3333%', '33.3333%'],
+    },
+  ],
+  '6-players': [
+    {
+      xvalues: ['100%', '25%', '25%', '25%', '25%', '100%'],
+      yvalues: ['33.3333%', '33.3333%', '33.3333%', '33.3333%', '33.3333%', '33.3333%'],
+    },
+    {
+      xvalues: ['100%', '33.3333%', '33.3333%', '33.3333%', '50%', '50%'],
+      yvalues: ['33.3333%', '33.3333%', '33.3333%', '33.3333%', '33.3333%', '33.3333%'],
+    },
+    {
+      xvalues: ['50%', '50%', '50%', '50%', '50%', '50%'],
+      yvalues: ['33.3333%', '33.3333%', '33.3333%', '33.3333%', '33.3333%', '33.3333%'],
     },
   ],
 };
@@ -64,12 +127,12 @@ const Main = ({ params }) => {
       const createAndSetGridItems = () => {
         const items = streamersList.map((streamer, index) => (
           <Box
-            // bg={['#555', '#999', '#777', '#222'][index]}
+            // bg={['#555', '#999', '#777', '#222', '#444', '#888'][index]}
             key={streamer.broadcaster_login}
             style={{
               order: index,
-              flex: `${selectedLayout.values[index]}`,
-              height: index === 0 ? selectedLayout.heightPercentagePerRow[0] : selectedLayout.heightPercentagePerRow[1],
+              flex: `${selectedLayout.xvalues[index]}`,
+              height: `${selectedLayout.yvalues[index]}`,
             }}
             id={streamer.broadcaster_login}
             className="iframe-wrapper"
@@ -171,7 +234,8 @@ const Main = ({ params }) => {
             streamersList={streamersList}
             setStreamersList={setStreamersList}
             maxNumberOfStreamers={maxNumberOfStreamers}
-            selectedLayout={selectedLayout}
+            selectableLayouts={selectableLayouts}
+            router={router}
           />
         </div>
         <Flex
@@ -201,7 +265,6 @@ const Main = ({ params }) => {
             h="100%"
           >
             <Chat
-              key={`${Math.random()}`} // force reload the chat iframe when the stream list changes
               streamersList={streamersList}
               chatFlex={chatFlex}
             />

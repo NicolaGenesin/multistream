@@ -14,6 +14,14 @@ const Main = ({ streamersList, chatFlex }) => {
   const [twitchChat, setTwitchChat] = useState(<Spacer />);
 
   useEffect(() => {
+    console.log(streamersList);
+
+    if (streamersList.length > 0) {
+      setStreamer(streamersList[0]);
+    }
+  }, [streamersList]);
+
+  useEffect(() => {
     if (document) {
       const chatBox = document.getElementById('chat-box');
 
@@ -82,12 +90,12 @@ const Main = ({ streamersList, chatFlex }) => {
         >
           <Text
             fontSize="15px"
-            fontWeight="bolder"
-            letterSpacing="wide"
-            color="#fff"
+            fontWeight="600"
+            fontFamily="Inter,Roobert,Helvetica Neue,Helvetica,Arial,sans-serif"
+            color="#dedee3"
             w="100%"
           >
-            Current Streamer Chat
+            VIEW A DIFFERENT CHAT
           </Text>
           <Button
             _hover={{ bg: '#772ce7' }}
@@ -95,7 +103,10 @@ const Main = ({ streamersList, chatFlex }) => {
               setChatState(false);
             }}
             size="xs"
+            pl="12px"
+            pr="12px"
             fontWeight="bolder"
+            fontFamily="Inter,Roobert,Helvetica Neue,Helvetica,Arial,sans-serif"
             bg="#9147fe"
             icon={<IoCloseOutline />}
             color="#fff"
@@ -106,11 +117,11 @@ const Main = ({ streamersList, chatFlex }) => {
         <Select
           size="md"
           letterSpacing="wide"
-          fontWeight="semibold"
+          fontWeight="900"
           fontSize="15px"
           bg="#ffffff33"
           borderColor="#555"
-          color="#fff"
+          color="#ddd"
           onInput={(e) => {
             const streamerLogin = e.target.value;
             const streamer = streamersList.find((streamer) => streamer.broadcaster_login === streamerLogin);
