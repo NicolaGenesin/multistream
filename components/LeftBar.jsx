@@ -347,6 +347,12 @@ const Main = forwardRef(({
             <PopoverArrow bg="#333" />
             <PopoverCloseButton bg="#9147ff" />
             <PopoverBody>
+              Discord:
+              {' '}
+              <Link color="#9147ff" href="https://discordapp.com/users/156165203619348480">
+                Filodream
+              </Link>
+              <br />
               Twitter:
               {' '}
               <Link color="#9147ff" href="https://twitter.com/NicolaGenesin">
