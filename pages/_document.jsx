@@ -12,6 +12,8 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
+        {
+        process.env.NODE_ENV !== 'development' && (
         <Head>
           <script
             async
@@ -39,6 +41,8 @@ class MyDocument extends Document {
             }}
           />
         </Head>
+        )
+        }
         <body>
           <Main />
           <NextScript />
