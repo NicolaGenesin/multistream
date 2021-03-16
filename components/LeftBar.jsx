@@ -16,8 +16,8 @@ import {
   IoCloseOutline,
 } from 'react-icons/io5';
 import {
-  BsLayoutWtf,
-} from 'react-icons/bs';
+  RiLayoutMasonryLine,
+} from 'react-icons/ri';
 import {
   MdRotateRight,
 } from 'react-icons/md';
@@ -224,7 +224,7 @@ const Main = forwardRef(({
               }}
             >
               <Icon
-                as={BsLayoutWtf}
+                as={RiLayoutMasonryLine}
                 color="#fff"
               />
             </Circle>
