@@ -14,8 +14,6 @@ const Main = ({ streamersList, chatFlex }) => {
   const [twitchChat, setTwitchChat] = useState(<Spacer />);
 
   useEffect(() => {
-    console.log(streamersList);
-
     if (streamersList.length > 0) {
       setStreamer(streamersList[0]);
     }
@@ -95,7 +93,7 @@ const Main = ({ streamersList, chatFlex }) => {
             color="#dedee3"
             w="100%"
           >
-            VIEW A DIFFERENT CHAT
+            SELECT CHAT
           </Text>
           <Button
             _hover={{ bg: '#772ce7' }}
