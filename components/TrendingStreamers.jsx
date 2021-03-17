@@ -60,7 +60,7 @@ const Main = ({ setStreamersList }) => {
           >
             <Box
               h={['40px', '110px']}
-              w={['auto', '220px']}
+              w={['auto', '270px']}
             >
               <Image
                 borderRadius="8px 8px 0px 0px"
