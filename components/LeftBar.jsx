@@ -381,7 +381,7 @@ const Main = forwardRef(({
               color="#fff"
               fontSize="sm"
             >
-              Share streamers to Reddit
+              Share streams to Reddit
             </Text>
           </HStack>
           <HStack w="100%">
@@ -412,7 +412,7 @@ const Main = forwardRef(({
               color="#fff"
               fontSize="sm"
             >
-              Share streamers to Twitter
+              Share streams to Twitter
             </Text>
           </HStack>
         </VStack>
