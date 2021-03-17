@@ -129,6 +129,11 @@ const Main = ({ streamersList, chatFlex }) => {
         >
           {streamersList.map((x, index) => (
             <option
+              style={{
+                fontSize: '16px',
+                background: '#444',
+                color: '#ddd',
+              }}
               key={`${index}`}
               value={x.broadcaster_login}
             >
