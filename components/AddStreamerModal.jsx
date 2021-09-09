@@ -9,7 +9,7 @@ const searchTwitchUsersByLoginName = async (query) => {
     method: 'GET',
     headers: {
       'client-id': 'oc2v6nbh3v12i5i5x8et8bo7amnu9o',
-      Authorization: 'Bearer ' + 'iu705cvxoeq65oe0gnvoh119g0unan',
+      Authorization: 'Bearer ' + 'ep7ye6kf80iyrwng92t9uy49257ggp',
     },
   });
 
