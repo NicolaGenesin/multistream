@@ -4,18 +4,11 @@ import {
 } from '@chakra-ui/react';
 import TrendingStreamers from './TrendingStreamers';
 
-const Main = ({
-  action,
-  setStreamersList,
-}) => (
-  <Center
-    w="100%"
-    h="100%"
-    pt="5%"
-    color="white"
-  >
+const Main = ({ action, setStreamersList }) => (
+  <Center w="100%" h="100%" pt="5%" color="white">
     <VStack>
       <Heading
+        as="h1"
         mt="16px"
         mb={['0px', '16px']}
         textAlign="center"
@@ -31,6 +24,8 @@ const Main = ({
           size="lg"
           w="100%"
           color="#9147ff"
+          bg="#fff"
+          _hover={{ bg: '#ebedf0' }}
           onClick={() => {
             action();
           }}
@@ -38,9 +33,7 @@ const Main = ({
           Add Streamer
         </Button>
       </Box>
-      <TrendingStreamers
-        setStreamersList={setStreamersList}
-      />
+      <TrendingStreamers setStreamersList={setStreamersList} />
     </VStack>
   </Center>
 );
