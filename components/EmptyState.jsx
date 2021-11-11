@@ -50,8 +50,11 @@ const Main = ({ action, setStreamersList }) => {
           >
             <Button
               boxShadow="dark-lg"
+              borderRadius="999px"
+              p='28px'
+              fontSize="26px"
               letterSpacing="wide"
-              size="lg"
+              size="xl"
               w="100%"
               color="#9147ff"
               bg="#fff"

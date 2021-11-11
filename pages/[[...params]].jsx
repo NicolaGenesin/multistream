@@ -224,54 +224,64 @@ const Main = ({ params }) => {
   const chatFlex = 3;
 
   return (
-    <div className="backgroundLayout">
-      <HStack
-        spacing={0}
-      >
-        <div className={isMobile ? 'leftBarMobile' : ''}>
-          <LeftBar
-            ref={leftBarRef}
-            streamersList={streamersList}
-            setStreamersList={setStreamersList}
-            maxNumberOfStreamers={maxNumberOfStreamers}
-            selectableLayouts={selectableLayouts}
-            router={router}
-          />
-        </div>
-        <Flex
-          h="100vh"
-          w="100%"
+    <Box>
+      <Box position="absolute" minW="100%" minH="100vh">
+        <div
+          className="colorBackground"
+        />
+        <div
+          className="imageBackground"
+        />
+      </Box>
+      <Box bg="transparent" position="relative">
+        <HStack
+          spacing={0}
         >
-          <Flex
-            h="100%"
-            flex={streamsFlex}
-            flexDirection="row"
-            flexWrap="wrap"
-            justifyItems="flex-start"
-            alignItems="flex-start"
-          >
-            {!streamersList.length && (
-            <EmptyState
-              setStreamersList={setStreamersList}
-              action={leftBarRef.current && leftBarRef.current.openModal}
-            />
-            )}
-            {gridItems}
-          </Flex>
-          {(streamersList.length > 0 && !isMobile) && (
-          <Box
-            id="chat-box"
-            flex={chatFlex}
-            h="100%"
-          >
-            <Chat
+          <div className={isMobile ? 'leftBarMobile' : ''}>
+            <LeftBar
+              ref={leftBarRef}
               streamersList={streamersList}
-              chatFlex={chatFlex}
+              setStreamersList={setStreamersList}
+              maxNumberOfStreamers={maxNumberOfStreamers}
+              selectableLayouts={selectableLayouts}
+              router={router}
             />
-          </Box>
-          )}
-        </Flex>
-      </HStack>
+          </div>
+          <Flex
+            h="100vh"
+            w="100%"
+          >
+            <Flex
+              h="100%"
+              flex={streamsFlex}
+              flexDirection="row"
+              flexWrap="wrap"
+              justifyItems="flex-start"
+              alignItems="flex-start"
+            >
+              {!streamersList.length && (
+              <EmptyState
+                setStreamersList={setStreamersList}
+                action={leftBarRef.current && leftBarRef.current.openModal}
+              />
+              )}
+              {gridItems}
+            </Flex>
+            {(streamersList.length > 0 && !isMobile) && (
+            <Box
+              id="chat-box"
+              flex={chatFlex}
+              h="100%"
+            >
+              <Chat
+                streamersList={streamersList}
+                chatFlex={chatFlex}
+              />
+            </Box>
+            )}
+          </Flex>
+        </HStack>
+      </Box>
       <style jsx>
         {`
           .leftBarMobile {
@@ -280,10 +290,25 @@ const Main = ({ params }) => {
             float: left;
           }
 
-          .backgroundLayout {
-            background: linear-gradient(45deg, #111, #47237d, #111, #42118c);
+          .colorBackground {
+            position: absolute;
+            height: 100vh;
+            min-width: 100%;
+            background: linear-gradient(70deg, #111, #47237d, #111, #42118c);
             background-size: 600% 600%;
-            animation: gradient 15s ease infinite;
+            animation: gradient 20s ease infinite;
+          }
+          
+          .imageBackground {
+            position: relative;
+            height: 100vh;
+            min-width: 100%;
+            background-size: 150% 150%;
+            opacity: 0.1;
+            animation: gradient 40s ease infinite;
+            background-image: url("./assets/background-min.jpeg");
+            filter: blur(8px);
+            -webkit-filter: blur(8px);
           }
 
           @keyframes gradient {
@@ -300,7 +325,7 @@ const Main = ({ params }) => {
         `}
 
       </style>
-    </div>
+    </Box>
   );
 };
 
