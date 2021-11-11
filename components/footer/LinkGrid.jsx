@@ -5,10 +5,10 @@ import { FooterHeading } from './FooterHeading'
 export const LinkGrid = (props) => (
   <SimpleGrid columns={2} {...props}>
     <Box minW="130px">
-      <FooterHeading mb="4">Product</FooterHeading>
+      {/* <FooterHeading mb="4">Product</FooterHeading>
       <Stack>
         <Link>How it works</Link>
-      </Stack>
+      </Stack> */}
     </Box>
     <Box minW="130px">
       <FooterHeading mb="4">Legal</FooterHeading>

@@ -45,12 +45,13 @@ const Main = ({ action, setStreamersList }) => {
           >
             Watch multiple Twitch streams on Your Screen
           </Heading>
-          <Box mb={['0px', '48px']}>
+          <Box
+            pb="48px"
+          >
             <Button
               boxShadow="dark-lg"
               letterSpacing="wide"
               size="lg"
-              // p='8px'
               w="100%"
               color="#9147ff"
               bg="#fff"
@@ -62,23 +63,31 @@ const Main = ({ action, setStreamersList }) => {
               Add a Streamer
             </Button>
           </Box>
-          <Heading pt="5%" pb="16px" fontSize={['xl']}>
-            GG! Welcome to Multistream!
-          </Heading>
-          <Box textAlign="center" px="16px">
+          <Box
+            textAlign="center"
+            p="16px"
+            bg="#44555555"
+            borderRadius="8px"
+          >
+            <Heading pb="16px" fontSize={['xl']}>
+              GG! Welcome to Multistream!
+            </Heading>
             <Text>
-              You can use this simple tool to watch up to 8 Twitch streams at the same time (as long as your computer and bandwidth can handle it!).
+              You can use this free website to watch up to 6 Twitch streams at the same time, as long as your computer and bandwidth can handle it!
+            </Text>
+            <Text>
+              I’ve built it to watch tournaments without the need of arranging multiple windows and to make it easy to share. I hope you’ll enjoy it!
             </Text>
             <Heading as="h3" py="16px" fontSize={['lg']}>
-              How to use
+              How to use it
             </Heading>
             <Text>
               Simply add the streamers you want to watch by clicking the "Add a Streamer" button on the left bar.
             </Text>
             <Text>
-              As an alternative, you can put the streamers usernames in the url (e.g.
+              As an alternative, you can put the twitch usernames in the url (e.g.
               {' '}
-              <b><Link href="https://multistream.gg/neenoh/vombuz">multistream.gg/neenoh/vombuz</Link></b>
+              <b><Link href="https://multistream.gg/neenoh/vombuz">multistream.gg/twitch_username_1/twitch_username_2</Link></b>
               )
             </Text>
             <Text>

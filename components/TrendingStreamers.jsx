@@ -71,6 +71,7 @@ const Main = ({ trendingStreamers }) => (
           >
             <Spacer />
             <Text
+              maxW="270px"
               mr="4px"
               fontSize="xs"
               fontWeight="semibold"
