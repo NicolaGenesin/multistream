@@ -134,7 +134,7 @@ const Main = forwardRef(
           STREAMS
         </Text>
         {streamersOrderedbyUser.map((currentStreamer, index) => (
-          <HStack w="100%">
+          <HStack w="100%" key={`hstack-${index}`}>
             <Avatar
               _hover={{
                 transform: 'translate(8%, -2%)',
@@ -345,7 +345,7 @@ const Main = forwardRef(
               color="#fff"
               fontSize="sm"
             >
-              Add streamer
+              Add a Streamer
             </Text>
           </HStack>
           {streamersList.length > 1 && (
