@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -15,26 +15,24 @@ import {
   Icon,
   Text,
   Kbd,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 const searchTwitchUsersByLoginName = async (query) => {
   const response = await fetch(
     `https://api.twitch.tv/helix/search/channels?query=${query}`,
     {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'client-id': 'oc2v6nbh3v12i5i5x8et8bo7amnu9o',
-        Authorization: 'Bearer ' + 'ep7ye6kf80iyrwng92t9uy49257ggp',
+        "client-id": "oc2v6nbh3v12i5i5x8et8bo7amnu9o",
+        Authorization: "Bearer " + "c1o72ykf9z9gz7d7a0dvnz55l28jo5",
       },
-    },
+    }
   );
 
   return response.json();
 };
 
-const Main = ({
-  isOpen, onOpen, onClose, setStreamersList, streamersList,
-}) => {
+const Main = ({ isOpen, onOpen, onClose, setStreamersList, streamersList }) => {
   const initialRef = React.useRef();
   const [searchResults, setSearchResult] = useState([]);
   const onEnterPress = useCallback(async (event) => {
@@ -52,10 +50,10 @@ const Main = ({
   }, []);
 
   useEffect(() => {
-    document.addEventListener('keydown', (e) => onEnterPress(e), false);
+    document.addEventListener("keydown", (e) => onEnterPress(e), false);
 
     return () => {
-      document.removeEventListener('keydown', (e) => onEnterPress(e), false);
+      document.removeEventListener("keydown", (e) => onEnterPress(e), false);
     };
   }, []);
 
@@ -68,16 +66,16 @@ const Main = ({
             mb="16px"
             bg="white"
             color="#333"
-            _focus={{ borderColor: '#9147ff' }}
+            _focus={{ borderColor: "#9147ff" }}
             ref={initialRef}
             placeholder="Twitch username"
-            _placeholder={{ color: '#999' }}
+            _placeholder={{ color: "#999" }}
           />
           <Button
             w="100%"
             color="#9147ff"
             bg="#fff"
-            _hover={{ bg: '#ebedf0' }}
+            _hover={{ bg: "#ebedf0" }}
             onClick={async () => {
               const query = initialRef.current.value;
 
@@ -90,8 +88,7 @@ const Main = ({
               setSearchResult(result.data);
             }}
           >
-            Search by Twitch username
-            {' '}
+            Search by Twitch username{" "}
             <Box ml="8px">
               <Kbd color="white" bg="#a56bfa">
                 Enter
@@ -100,7 +97,7 @@ const Main = ({
           </Button>
           <Table
             size="sm"
-            mt={searchResults.length === 0 ? '0px' : '16px'}
+            mt={searchResults.length === 0 ? "0px" : "16px"}
             variant="simple"
             borderRadius="18px"
           >
@@ -113,7 +110,7 @@ const Main = ({
                     setSearchResult([]);
                     onClose();
                   }}
-                  _hover={{ bg: '#444450' }}
+                  _hover={{ bg: "#444450" }}
                 >
                   <Td>
                     <HStack>
@@ -140,7 +137,7 @@ const Main = ({
                       <Box>
                         <Icon
                           viewBox="0 0 200 200"
-                          color={result.is_live ? 'green.400' : 'red.400'}
+                          color={result.is_live ? "green.400" : "red.400"}
                         >
                           <path
                             fill="currentColor"
@@ -157,7 +154,7 @@ const Main = ({
                           color="#eee"
                           fontSize="xs"
                         >
-                          {result.is_live ? 'STREAMING' : 'OFFLINE'}
+                          {result.is_live ? "STREAMING" : "OFFLINE"}
                         </Text>
                       </Box>
                     </HStack>

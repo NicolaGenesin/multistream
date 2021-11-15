@@ -1,106 +1,123 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/router';
-import {
-  Box, Flex, HStack,
-} from '@chakra-ui/react';
-import {
-  TwitchEmbed,
-} from 'react-twitch-embed';
-import { isMobile } from 'react-device-detect';
-import LeftBar from '../components/LeftBar';
-import EmptyState from '../components/EmptyState';
-import Chat from '../components/Chat';
+import React, { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/router";
+import { Box, Flex, HStack } from "@chakra-ui/react";
+import { TwitchEmbed } from "react-twitch-embed";
+import { isMobile } from "react-device-detect";
+import LeftBar from "../components/LeftBar";
+import EmptyState from "../components/EmptyState";
+import Chat from "../components/Chat";
 
 const maxNumberOfStreamers = 6;
 const layouts = {
-  '0-players': [
+  "0-players": [
     {
-      xvalues: ['100%'],
-      yvalues: ['100%'],
+      xvalues: ["100%"],
+      yvalues: ["100%"],
     },
   ],
-  '1-players': [
+  "1-players": [
     {
-      xvalues: ['100%'],
-      yvalues: ['100%'],
+      xvalues: ["100%"],
+      yvalues: ["100%"],
     },
     {
-      xvalues: ['100%'],
-      yvalues: ['100%'],
+      xvalues: ["100%"],
+      yvalues: ["100%"],
     },
     {
-      xvalues: ['100%'],
-      yvalues: ['100%'],
-    },
-  ],
-  '2-players': [
-    {
-      xvalues: ['100%', '100%'],
-      yvalues: ['60%', '40%'],
-    },
-    {
-      xvalues: ['100%', '100%'],
-      yvalues: ['70%', '30%'],
-    },
-    {
-      xvalues: ['100%', '100%'],
-      yvalues: ['50%', '50%'],
+      xvalues: ["100%"],
+      yvalues: ["100%"],
     },
   ],
-  '3-players': [
+  "2-players": [
     {
-      xvalues: ['100%', '50%', '50%'],
-      yvalues: ['50%', '50%', '50%'],
+      xvalues: ["100%", "100%"],
+      yvalues: ["60%", "40%"],
     },
     {
-      xvalues: ['100%', '50%', '50%'],
-      yvalues: ['70%', '30%', '30%'],
+      xvalues: ["100%", "100%"],
+      yvalues: ["70%", "30%"],
     },
     {
-      xvalues: ['100%', '100%', '100%'],
-      yvalues: ['33.3333%', '33.3333%', '33.3333%'],
-    },
-  ],
-  '4-players': [
-    {
-      xvalues: ['100%', '30%', '30%', '30%'],
-      yvalues: ['60%', '40%', '40%', '40%'],
-    },
-    {
-      xvalues: ['50%', '50%', '50%', '50%'],
-      yvalues: ['50%', '50%', '50%', '50%'],
-    },
-    {
-      xvalues: ['100%', '50%', '50%', '100%'],
-      yvalues: ['33.3333%', '33.3333%', '33.3333%', '33.3333%'],
+      xvalues: ["100%", "100%"],
+      yvalues: ["50%", "50%"],
     },
   ],
-  '5-players': [
+  "3-players": [
     {
-      xvalues: ['100%', '33.3333%', '33.3333%', '33.3333%', '100%'],
-      yvalues: ['33.3333%', '33.3333%', '33.3333%', '33.3333%', '33.3333%'],
+      xvalues: ["100%", "50%", "50%"],
+      yvalues: ["50%", "50%", "50%"],
     },
     {
-      xvalues: ['100%', '25%', '25%', '25%', '25%'],
-      yvalues: ['60%', '40%', '40%', '40%', '40%'],
+      xvalues: ["100%", "50%", "50%"],
+      yvalues: ["70%", "30%", "30%"],
     },
     {
-      xvalues: ['100%', '50%', '50%', '50%', '50%'],
-      yvalues: ['33.3333%', '33.3333%', '33.3333%', '33.3333%', '33.3333%'],
+      xvalues: ["100%", "100%", "100%"],
+      yvalues: ["33.3333%", "33.3333%", "33.3333%"],
     },
   ],
-  '6-players': [
+  "4-players": [
     {
-      xvalues: ['100%', '25%', '25%', '25%', '25%', '100%'],
-      yvalues: ['33.3333%', '33.3333%', '33.3333%', '33.3333%', '33.3333%', '33.3333%'],
+      xvalues: ["100%", "30%", "30%", "30%"],
+      yvalues: ["60%", "40%", "40%", "40%"],
     },
     {
-      xvalues: ['100%', '33.3333%', '33.3333%', '33.3333%', '50%', '50%'],
-      yvalues: ['33.3333%', '33.3333%', '33.3333%', '33.3333%', '33.3333%', '33.3333%'],
+      xvalues: ["50%", "50%", "50%", "50%"],
+      yvalues: ["50%", "50%", "50%", "50%"],
     },
     {
-      xvalues: ['50%', '50%', '50%', '50%', '50%', '50%'],
-      yvalues: ['33.3333%', '33.3333%', '33.3333%', '33.3333%', '33.3333%', '33.3333%'],
+      xvalues: ["100%", "50%", "50%", "100%"],
+      yvalues: ["33.3333%", "33.3333%", "33.3333%", "33.3333%"],
+    },
+  ],
+  "5-players": [
+    {
+      xvalues: ["100%", "33.3333%", "33.3333%", "33.3333%", "100%"],
+      yvalues: ["33.3333%", "33.3333%", "33.3333%", "33.3333%", "33.3333%"],
+    },
+    {
+      xvalues: ["100%", "25%", "25%", "25%", "25%"],
+      yvalues: ["60%", "40%", "40%", "40%", "40%"],
+    },
+    {
+      xvalues: ["100%", "50%", "50%", "50%", "50%"],
+      yvalues: ["33.3333%", "33.3333%", "33.3333%", "33.3333%", "33.3333%"],
+    },
+  ],
+  "6-players": [
+    {
+      xvalues: ["100%", "25%", "25%", "25%", "25%", "100%"],
+      yvalues: [
+        "33.3333%",
+        "33.3333%",
+        "33.3333%",
+        "33.3333%",
+        "33.3333%",
+        "33.3333%",
+      ],
+    },
+    {
+      xvalues: ["100%", "33.3333%", "33.3333%", "33.3333%", "50%", "50%"],
+      yvalues: [
+        "33.3333%",
+        "33.3333%",
+        "33.3333%",
+        "33.3333%",
+        "33.3333%",
+        "33.3333%",
+      ],
+    },
+    {
+      xvalues: ["50%", "50%", "50%", "50%", "50%", "50%"],
+      yvalues: [
+        "33.3333%",
+        "33.3333%",
+        "33.3333%",
+        "33.3333%",
+        "33.3333%",
+        "33.3333%",
+      ],
     },
   ],
 };
@@ -114,7 +131,7 @@ const Main = ({ params }) => {
   const selectableLayouts = layouts[`${numberOfStreamers}-players`];
   const selectedLayoutIndex = 0;
   const selectedLayout = selectableLayouts[selectedLayoutIndex];
-  const [gridItems, setGridItems] = useState('');
+  const [gridItems, setGridItems] = useState("");
 
   useEffect(() => {
     if (params) {
@@ -140,7 +157,7 @@ const Main = ({ params }) => {
           >
             {/* {streamer.broadcaster_login} */}
             <TwitchEmbed
-              style={{ display: 'block', width: '100%' }}
+              style={{ display: "block", width: "100%" }}
               channel={streamer.broadcaster_login}
               id={streamer.broadcaster_login}
               key={streamer.broadcaster_login}
@@ -156,7 +173,7 @@ const Main = ({ params }) => {
       };
 
       if (window.Twitch) {
-        console.log('[window.Twitch] Mounted');
+        console.log("[window.Twitch] Mounted");
         createAndSetGridItems();
       } else {
         const waitMs = 2500;
@@ -167,26 +184,34 @@ const Main = ({ params }) => {
         }, waitMs);
       }
     } else {
-      setGridItems('');
+      setGridItems("");
     }
   }, [streamersList]);
 
   useEffect(async () => {
-    const loginNames = streamersList.map((streamer) => streamer.login || streamer.broadcaster_login);
-    const path = loginNames.join('/');
+    const loginNames = streamersList.map(
+      (streamer) => streamer.login || streamer.broadcaster_login
+    );
+    const path = loginNames.join("/");
     // todo check if it's not the same to avoid unnecessary rendering
-    router.push({
-      pathname: `/${path}`,
-    }, undefined, { shallow: true });
+    router.push(
+      {
+        pathname: `/${path}`,
+      },
+      undefined,
+      { shallow: true }
+    );
 
-    if (hasFetchedImages || !streamersList.length) { return; }
+    if (hasFetchedImages || !streamersList.length) {
+      return;
+    }
 
-    const query = loginNames.map((name) => `login=${name}`).join('&');
+    const query = loginNames.map((name) => `login=${name}`).join("&");
     const response = await fetch(`https://api.twitch.tv/helix/users?${query}`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'client-id': 'oc2v6nbh3v12i5i5x8et8bo7amnu9o',
-        Authorization: 'Bearer ' + 'ep7ye6kf80iyrwng92t9uy49257ggp',
+        "client-id": "oc2v6nbh3v12i5i5x8et8bo7amnu9o",
+        Authorization: "Bearer " + "c1o72ykf9z9gz7d7a0dvnz55l28jo5",
       },
     });
 
@@ -194,10 +219,11 @@ const Main = ({ params }) => {
     const newList = [...streamersList];
 
     result.data.forEach((streamerInfo) => {
-      const existingStreamerRecord = newList
-        .find((streamer) => (
-          streamer.login === streamerInfo.login || streamer.broadcaster_login === streamerInfo.login
-        ));
+      const existingStreamerRecord = newList.find(
+        (streamer) =>
+          streamer.login === streamerInfo.login ||
+          streamer.broadcaster_login === streamerInfo.login
+      );
 
       if (!existingStreamerRecord.thumbnail_url) {
         existingStreamerRecord.thumbnail_url = streamerInfo.profile_image_url;
@@ -226,18 +252,12 @@ const Main = ({ params }) => {
   return (
     <Box>
       <Box position="absolute" minW="100%" minH="100vh">
-        <div
-          className="colorBackground"
-        />
-        <div
-          className="imageBackground"
-        />
+        <div className="colorBackground" />
+        <div className="imageBackground" />
       </Box>
       <Box bg="transparent" position="relative">
-        <HStack
-          spacing={0}
-        >
-          <div className={isMobile ? 'leftBarMobile' : ''}>
+        <HStack spacing={0}>
+          <div className={isMobile ? "leftBarMobile" : ""}>
             <LeftBar
               ref={leftBarRef}
               streamersList={streamersList}
@@ -247,10 +267,7 @@ const Main = ({ params }) => {
               router={router}
             />
           </div>
-          <Flex
-            h="100vh"
-            w="100%"
-          >
+          <Flex h="100vh" w="100%">
             <Flex
               h="100%"
               flex={streamsFlex}
@@ -260,24 +277,17 @@ const Main = ({ params }) => {
               alignItems="flex-start"
             >
               {!streamersList.length && (
-              <EmptyState
-                setStreamersList={setStreamersList}
-                action={leftBarRef.current && leftBarRef.current.openModal}
-              />
+                <EmptyState
+                  setStreamersList={setStreamersList}
+                  action={leftBarRef.current && leftBarRef.current.openModal}
+                />
               )}
               {gridItems}
             </Flex>
-            {(streamersList.length > 0 && !isMobile) && (
-            <Box
-              id="chat-box"
-              flex={chatFlex}
-              h="100%"
-            >
-              <Chat
-                streamersList={streamersList}
-                chatFlex={chatFlex}
-              />
-            </Box>
+            {streamersList.length > 0 && !isMobile && (
+              <Box id="chat-box" flex={chatFlex} h="100%">
+                <Chat streamersList={streamersList} chatFlex={chatFlex} />
+              </Box>
             )}
           </Flex>
         </HStack>
@@ -298,7 +308,7 @@ const Main = ({ params }) => {
             background-size: 600% 600%;
             animation: gradient 20s ease infinite;
           }
-          
+
           .imageBackground {
             position: relative;
             height: 100vh;
@@ -323,7 +333,6 @@ const Main = ({ params }) => {
             }
           }
         `}
-
       </style>
     </Box>
   );
