@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import React, { useEffect } from "react";
+import { useRouter } from "next/router";
 
 function Error({ statusCode }) {
   const router = useRouter();
 
   useEffect(() => {
     router.push({
-      pathname: '/',
+      pathname: "/",
     });
   }, []);
 
@@ -14,7 +14,7 @@ function Error({ statusCode }) {
     <p>
       {statusCode
         ? `An error ${statusCode} occurred on server`
-        : 'An error occurred on client'}
+        : "An error occurred on client"}
     </p>
   );
 }

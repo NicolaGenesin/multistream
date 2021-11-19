@@ -3,8 +3,8 @@ import React, {
   useEffect,
   useImperativeHandle,
   useState,
-} from 'react';
-import { isMobile } from 'react-device-detect';
+} from "react";
+import { isMobile } from "react-device-detect";
 import {
   AvatarBadge,
   Avatar,
@@ -24,18 +24,18 @@ import {
   PopoverHeader,
   PopoverBody,
   PopoverCloseButton,
-} from '@chakra-ui/react';
-import { IoMdAdd } from 'react-icons/io';
-import { IoCloseOutline, IoInformationSharp } from 'react-icons/io5';
-import { RiLayoutMasonryLine } from 'react-icons/ri';
-import { MdRotateRight } from 'react-icons/md';
+} from "@chakra-ui/react";
+import { IoMdAdd } from "react-icons/io";
+import { IoCloseOutline, IoInformationSharp } from "react-icons/io5";
+import { RiLayoutMasonryLine } from "react-icons/ri";
+import { MdRotateRight } from "react-icons/md";
 import {
   RedditShareButton,
   TwitterShareButton,
   TwitterIcon,
   RedditIcon,
-} from 'react-share';
-import AddStreamerModal from './AddStreamerModal';
+} from "react-share";
+import AddStreamerModal from "./AddStreamerModal";
 
 const arrayRotate = (arr, reverse) => {
   if (reverse) arr.unshift(arr.pop());
@@ -52,11 +52,12 @@ const Main = forwardRef(
       selectableLayouts,
       router,
     },
-    ref,
+    ref
   ) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [streamersOrderedbyUser, setStreamersOrderedbyUser] = useState(streamersList);
-    const [shareURL, setShareURL] = useState('');
+    const [streamersOrderedbyUser, setStreamersOrderedbyUser] =
+      useState(streamersList);
+    const [shareURL, setShareURL] = useState("");
     const [selectedLayoutIndex, setSelectedLayoutIndex] = useState(0);
     const toast = useToast();
 
@@ -72,7 +73,7 @@ const Main = forwardRef(
       setSelectedLayoutIndex(0);
 
       const newSelectedLayout = selectableLayouts[0];
-      const wrappers = document.getElementsByClassName('iframe-wrapper');
+      const wrappers = document.getElementsByClassName("iframe-wrapper");
 
       for (const wrapper of wrappers) {
         const currentOrder = parseInt(wrapper.style.order);
@@ -88,32 +89,32 @@ const Main = forwardRef(
 
         try {
           console.log(`[GA] Send ${url} pageview`);
-          ga('set', 'page', url);
-          ga('send', 'pageview');
+          ga("set", "page", url);
+          ga("send", "pageview");
         } catch (error) {
-          console.log('[GA] Failed (handleRouteChange)');
+          console.log("[GA] Failed (handleRouteChange)");
         }
       };
 
-      router.events.on('routeChangeStart', handleRouteChange);
+      router.events.on("routeChangeStart", handleRouteChange);
 
       return () => {
-        router.events.off('routeChangeStart', handleRouteChange);
+        router.events.off("routeChangeStart", handleRouteChange);
       };
     }, []);
 
     return (
       <VStack
         bgGradient="linear(to-t, #9147ff55, #333)"
-        h={isMobile ? '100%' : '100vh'}
+        h={isMobile ? "100%" : "100vh"}
         pb="8px"
         pl="8px"
         pr="8px"
         w="56px"
-        _hover={{ w: '240px' }}
+        _hover={{ w: "240px" }}
         textAlign="left"
         style={{
-          transition: '0.2s ease',
+          transition: "0.2s ease",
         }}
       >
         <AddStreamerModal
@@ -137,12 +138,12 @@ const Main = forwardRef(
           <HStack w="100%" key={`hstack-${index}`}>
             <Avatar
               _hover={{
-                transform: 'translate(8%, -2%)',
+                transform: "translate(8%, -2%)",
                 boxShadow:
-                  '-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff',
+                  "-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff",
               }}
               style={{
-                transition: '0.2s ease',
+                transition: "0.2s ease",
               }}
               borderColor="#fff"
               borderWidth="0px"
@@ -155,8 +156,9 @@ const Main = forwardRef(
               <AvatarBadge
                 onClick={() => {
                   const filteredList = streamersList.filter(
-                    (streamer) => streamer.broadcaster_login
-                      !== currentStreamer.broadcaster_login,
+                    (streamer) =>
+                      streamer.broadcaster_login !==
+                      currentStreamer.broadcaster_login
                   );
 
                   setStreamersList([...filteredList]);
@@ -174,22 +176,23 @@ const Main = forwardRef(
               color="#fff"
               fontSize="sm"
               style={{
-                overflow: 'hidden',
-                whiteSpace: 'nowrap',
-                textOverflow: 'ellipsis',
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
               }}
             >
               {currentStreamer.display_name}
             </Text>
           </HStack>
         ))}
-        <VStack w="100%" pt={streamersList.length ? '16px' : '0px'}>
+        <VStack w="100%" pt={streamersList.length ? "16px" : "0px"}>
           {streamersList.length > 1 && (
             <Box w="100%">
               <HStack
                 mb="8px"
                 onClick={() => {
-                  const wrappers = document.getElementsByClassName('iframe-wrapper');
+                  const wrappers =
+                    document.getElementsByClassName("iframe-wrapper");
                   const selectedLayout = selectableLayouts[selectedLayoutIndex];
 
                   for (const wrapper of wrappers) {
@@ -205,33 +208,33 @@ const Main = forwardRef(
 
                   const updatedListOfStreamers = arrayRotate(
                     [...streamersOrderedbyUser],
-                    true,
+                    true
                   );
 
                   setStreamersOrderedbyUser(updatedListOfStreamers);
 
                   const loginNames = updatedListOfStreamers.map(
-                    (streamer) => streamer.login || streamer.broadcaster_login,
+                    (streamer) => streamer.login || streamer.broadcaster_login
                   );
-                  const path = loginNames.join('/');
+                  const path = loginNames.join("/");
 
                   router.push(
                     {
                       pathname: `/${path}`,
                     },
                     undefined,
-                    { shallow: true },
+                    { shallow: true }
                   );
                 }}
               >
                 <Circle
                   _hover={{
-                    transform: 'translate(8%, -2%)',
+                    transform: "translate(8%, -2%)",
                     boxShadow:
-                      '-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff',
+                      "-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff",
                   }}
                   style={{
-                    transition: '0.2s ease',
+                    transition: "0.2s ease",
                   }}
                   borderColor="#9147ff"
                   borderWidth="2px"
@@ -242,8 +245,8 @@ const Main = forwardRef(
                 </Circle>
                 <Text
                   style={{
-                    overflow: 'hidden',
-                    whiteSpace: 'nowrap',
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
                   }}
                   fontWeight="semibold"
                   color="#fff"
@@ -262,8 +265,10 @@ const Main = forwardRef(
 
                   setSelectedLayoutIndex(newSelectedLayoutIndex);
 
-                  const wrappers = document.getElementsByClassName('iframe-wrapper');
-                  const newSelectedLayout = selectableLayouts[newSelectedLayoutIndex];
+                  const wrappers =
+                    document.getElementsByClassName("iframe-wrapper");
+                  const newSelectedLayout =
+                    selectableLayouts[newSelectedLayoutIndex];
 
                   for (const wrapper of wrappers) {
                     const currentOrder = parseInt(wrapper.style.order);
@@ -275,12 +280,12 @@ const Main = forwardRef(
               >
                 <Circle
                   _hover={{
-                    transform: 'translate(8%, -2%)',
+                    transform: "translate(8%, -2%)",
                     boxShadow:
-                      '-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff',
+                      "-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff",
                   }}
                   style={{
-                    transition: '0.2s ease',
+                    transition: "0.2s ease",
                   }}
                   borderColor="#9147ff"
                   borderWidth="2px"
@@ -291,8 +296,8 @@ const Main = forwardRef(
                 </Circle>
                 <Text
                   style={{
-                    overflow: 'hidden',
-                    whiteSpace: 'nowrap',
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
                   }}
                   fontWeight="semibold"
                   color="#fff"
@@ -310,8 +315,8 @@ const Main = forwardRef(
                 toast({
                   title: `The maximum number of concurrent streams is ${maxNumberOfStreamers}`,
                   description:
-                    'Please delete one from the left column before adding a new one.',
-                  status: 'error',
+                    "Please delete one from the left column before adding a new one.",
+                  status: "error",
                   duration: 9000,
                   isClosable: true,
                 });
@@ -322,12 +327,12 @@ const Main = forwardRef(
           >
             <Circle
               _hover={{
-                transform: 'translate(8%, -2%)',
+                transform: "translate(8%, -2%)",
                 boxShadow:
-                  '-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff',
+                  "-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff",
               }}
               style={{
-                transition: '0.2s ease',
+                transition: "0.2s ease",
               }}
               borderColor="#9147ff"
               borderWidth="2px"
@@ -338,8 +343,8 @@ const Main = forwardRef(
             </Circle>
             <Text
               style={{
-                overflow: 'hidden',
-                whiteSpace: 'nowrap',
+                overflow: "hidden",
+                whiteSpace: "nowrap",
               }}
               fontWeight="semibold"
               color="#fff"
@@ -364,7 +369,7 @@ const Main = forwardRef(
                   url={shareURL}
                   title={`${streamersList
                     .map((streamer) => streamer.display_name)
-                    .join(', ')} are streaming right now!`}
+                    .join(", ")} are streaming right now!`}
                   windowWidth={660}
                   windowHeight={460}
                 >
@@ -372,12 +377,12 @@ const Main = forwardRef(
                     h={10}
                     w={10}
                     _hover={{
-                      transform: 'translate(8%, -2%)',
+                      transform: "translate(8%, -2%)",
                       boxShadow:
-                        '-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff',
+                        "-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff",
                     }}
                     style={{
-                      transition: '0.2s ease',
+                      transition: "0.2s ease",
                     }}
                   >
                     <RedditIcon size={48} round />
@@ -385,9 +390,9 @@ const Main = forwardRef(
                 </RedditShareButton>
                 <Text
                   style={{
-                    overflow: 'hidden',
-                    whiteSpace: 'nowrap',
-                    textOverflow: 'ellipsis',
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
                   }}
                   fontWeight="semibold"
                   color="#fff"
@@ -402,12 +407,12 @@ const Main = forwardRef(
                     h={10}
                     w={10}
                     _hover={{
-                      transform: 'translate(8%, -2%)',
+                      transform: "translate(8%, -2%)",
                       boxShadow:
-                        '-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff',
+                        "-1px 1px  #9147ff, -2px 2px  #9147ff, -3px 3px  #9147ff, -4px 4px  #9147ff",
                     }}
                     style={{
-                      transition: '0.2s ease',
+                      transition: "0.2s ease",
                     }}
                   >
                     <TwitterIcon size={48} round />
@@ -415,9 +420,9 @@ const Main = forwardRef(
                 </TwitterShareButton>
                 <Text
                   style={{
-                    overflow: 'hidden',
-                    whiteSpace: 'nowrap',
-                    textOverflow: 'ellipsis',
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
                   }}
                   fontWeight="semibold"
                   color="#fff"
@@ -437,7 +442,7 @@ const Main = forwardRef(
                 w="100%"
                 h="100%"
                 style={{
-                  overflow: 'hidden',
+                  overflow: "hidden",
                 }}
               >
                 <div className="verticalDiv">
@@ -455,7 +460,7 @@ const Main = forwardRef(
                   <Spacer />
                   <Circle
                     style={{
-                      transition: '0.2s ease',
+                      transition: "0.2s ease",
                     }}
                     borderColor="#9147ff"
                     borderWidth="2px"
@@ -465,7 +470,7 @@ const Main = forwardRef(
                     <Icon
                       as={IoInformationSharp}
                       color="#fff"
-                      _hover={{ color: '#ddd' }}
+                      _hover={{ color: "#ddd" }}
                     />
                   </Circle>
                 </VStack>
@@ -477,8 +482,7 @@ const Main = forwardRef(
               </PopoverHeader>
               <PopoverCloseButton bg="#9147ff" />
               <PopoverBody>
-                Discord:
-                {' '}
+                Discord:{" "}
                 <Link
                   color="#b482ff"
                   href="https://discordapp.com/users/156165203619348480"
@@ -486,20 +490,17 @@ const Main = forwardRef(
                   Filodream
                 </Link>
                 <br />
-                Twitter:
-                {' '}
+                Twitter:{" "}
                 <Link color="#b482ff" href="https://twitter.com/NicolaGenesin">
                   @NicolaGenesin
                 </Link>
                 <br />
-                Github:
-                {' '}
+                Github:{" "}
                 <Link color="#b482ff" href="https://github.com/NicolaGenesin">
                   NicolaGenesin
                 </Link>
                 <br />
-                Reddit:
-                {' '}
+                Reddit:{" "}
                 <Link
                   color="#b482ff"
                   href="https://www.reddit.com/message/compose/?to=1911z"
@@ -530,7 +531,7 @@ const Main = forwardRef(
         </style>
       </VStack>
     );
-  },
+  }
 );
 
 export default Main;

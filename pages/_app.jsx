@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
-import Head from 'next/head';
-import Fonts from '../components/Fonts';
+import * as React from "react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import Head from "next/head";
+import Fonts from "../components/Fonts";
 
 const theme = extendTheme({
   fonts: {
-    heading: 'Raleway',
-    body: 'Raleway',
+    heading: "Raleway",
+    body: "Raleway",
   },
 });
 

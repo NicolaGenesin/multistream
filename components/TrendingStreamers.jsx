@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
-  Icon, Box, Image, Heading, HStack, Text, Spacer, VStack, Link, Wrap,
-} from '@chakra-ui/react';
+  Icon,
+  Box,
+  Image,
+  Heading,
+  HStack,
+  Text,
+  Spacer,
+  VStack,
+  Link,
+  Wrap,
+} from "@chakra-ui/react";
 
 const Main = ({ trendingStreamers }) => (
-  <VStack
-    p="16px"
-  >
+  <VStack p="16px">
     <Wrap
       boxShadow="dark-lg"
       padding="16px"
@@ -15,41 +22,26 @@ const Main = ({ trendingStreamers }) => (
       borderColor="#9147ff22"
       spacing="16px"
       _hover={{
-        transform: 'scale(1.025)',
+        transform: "scale(1.025)",
       }}
     >
       {trendingStreamers.map((streamer, index) => (
-        <VStack
-          bg="#333"
-          borderRadius="8px"
-          spacing="0"
-          key={`${index}`}
-        >
-          <Box
-            h={['40px', '110px']}
-            w={['auto', '270px']}
-          >
+        <VStack bg="#333" borderRadius="8px" spacing="0" key={`${index}`}>
+          <Box h={["40px", "110px"]} w={["auto", "270px"]}>
             <Image
               borderRadius="8px 8px 0px 0px"
               boxSize="100%"
               objectFit="cover"
-              src={`${streamer.thumbnail_url.replace('{width}x{height}', '480x234')}`}
+              src={`${streamer.thumbnail_url.replace(
+                "{width}x{height}",
+                "480x234"
+              )}`}
             />
           </Box>
-          <HStack
-            pt="8px"
-            pr="4px"
-            w="100%"
-          >
+          <HStack pt="8px" pr="4px" w="100%">
             <Spacer />
-            <VStack
-              textAlign="right"
-            >
-              <Text
-                mr="4px"
-                fontWeight="semibold"
-                letterSpacing="wide"
-              >
+            <VStack textAlign="right">
+              <Text mr="4px" fontWeight="semibold" letterSpacing="wide">
                 <Icon
                   viewBox="0 0 200 200"
                   color="green.400"
@@ -65,10 +57,7 @@ const Main = ({ trendingStreamers }) => (
               </Text>
             </VStack>
           </HStack>
-          <HStack
-            pr="4px"
-            w="100%"
-          >
+          <HStack pr="4px" w="100%">
             <Spacer />
             <Text
               maxW="270px"
@@ -78,16 +67,10 @@ const Main = ({ trendingStreamers }) => (
               letterSpacing="wide"
               color="#999"
             >
-              Streaming
-              {' '}
-              {streamer.game_name}
+              Streaming {streamer.game_name}
             </Text>
           </HStack>
-          <HStack
-            pr="4px"
-            pb="8px"
-            w="100%"
-          >
+          <HStack pr="4px" pb="8px" w="100%">
             <Spacer />
             <Text
               mr="4px"
@@ -96,9 +79,7 @@ const Main = ({ trendingStreamers }) => (
               letterSpacing="wide"
               color="#999"
             >
-              Viewers:
-              {' '}
-              {streamer.viewer_count}
+              Viewers: {streamer.viewer_count}
             </Text>
           </HStack>
         </VStack>
