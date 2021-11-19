@@ -113,6 +113,13 @@ const Main = ({ action, setStreamersList }) => {
               You can also rotate them to let you focus on the stream you prefer
               by accessing the left bar.
             </Text>
+            <Heading as="h3" py="16px" fontSize={["lg"]}>
+              Do you want to know more about the Streamer you’re looking at?
+            </Heading>
+            <Box>
+              Join <Link href="https://www.kittr.gg/">kittr.gg</Link>, the place
+              for streamers to share kits - and for you to use them.
+            </Box>
           </Box>
           <Heading py="16px" size="sm" textAlign="center" as="h3">
             Check out the top streamers right now!
