@@ -27,7 +27,7 @@ const Main = ({ trendingStreamers }) => (
     >
       {trendingStreamers.map((streamer, index) => (
         <VStack bg="#333" borderRadius="8px" spacing="0" key={`${index}`}>
-          <Box h={["40px", "110px"]} w={["auto", "270px"]}>
+          <Box h={["100%", "110px"]} w={["100%", "270px"]}>
             <Image
               borderRadius="8px 8px 0px 0px"
               boxSize="100%"

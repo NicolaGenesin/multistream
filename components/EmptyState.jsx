@@ -44,7 +44,7 @@ const Main = ({ action, setStreamersList }) => {
   return (
     <Box w="100%" h="100%" color="white">
       <Box maxHeight="100%" pt="5%" overflow="auto">
-        <VStack>
+        <VStack mx="16px">
           <Heading
             as="h1"
             mt="16px"
@@ -97,13 +97,6 @@ const Main = ({ action, setStreamersList }) => {
             </Text>
             <Text>
               As an alternative, you can put the twitch usernames in the url
-              (e.g.{" "}
-              <b>
-                <Link href="https://multistream.gg/neenoh/vombuz">
-                  multistream.gg/twitch_username_1/twitch_username_2
-                </Link>
-              </b>
-              )
             </Text>
             <Text>
               Multistream will provide you a default layout for your streams
