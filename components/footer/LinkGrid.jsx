@@ -8,14 +8,6 @@ export const LinkGrid = (props) => (
       <FooterHeading mb="4">Resources</FooterHeading>
       <Stack>
         <Link href="https://eft-ammo.com/">Escape From Tarkov Ammo Charts</Link>
-        <Link href="https://www.kittr.gg/">
-          <Image
-            mt="-6px"
-            htmlWidth="100px"
-            objectFit="fit"
-            src="https://www.kittr.gg/media/beta-logo.svg"
-          />
-        </Link>
       </Stack>
     </Box>
     <Box minW="130px">
