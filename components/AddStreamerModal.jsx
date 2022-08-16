@@ -24,7 +24,7 @@ const searchTwitchUsersByLoginName = async (query) => {
       method: "GET",
       headers: {
         "client-id": "oc2v6nbh3v12i5i5x8et8bo7amnu9o",
-        Authorization: "Bearer " + "fd1x4svq80i11wzixvxh46rby25u2e",
+        Authorization: "Bearer " + "rxrut9w2z1fgxretvs2yj7lv70yerj",
       },
     }
   );

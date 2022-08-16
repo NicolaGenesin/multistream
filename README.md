@@ -20,5 +20,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 1. Install Redis (natively or as a docker instance)
 2. Clone https://github.com/BarryCarlyon/twitch_misc
-3. /twitch_misc/authentication/app_access_tokens/nodejs/master > node run.js
+3. /twitch_misc/authentication/app_access_tokens/nodejs/ > node run.js
 4. Copy the bearer and change it in the project (it lasts 2 months)
