@@ -211,7 +211,7 @@ const Main = ({ params }) => {
       method: "GET",
       headers: {
         "client-id": "oc2v6nbh3v12i5i5x8et8bo7amnu9o",
-        Authorization: "Bearer " + "rxrut9w2z1fgxretvs2yj7lv70yerj",
+        Authorization: "Bearer " + "pho3ophklkjmu8wrnfcdlu6zncdifl",
       },
     });
 
