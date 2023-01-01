@@ -30,7 +30,7 @@ const Main = ({ action, setStreamersList }) => {
           method: "GET",
           headers: {
             "client-id": "oc2v6nbh3v12i5i5x8et8bo7amnu9o",
-            Authorization: "Bearer " + "pho3ophklkjmu8wrnfcdlu6zncdifl",
+            Authorization: "Bearer " + "neaz9n5sipbmte165ojotqjdhr5g3f",
           },
         }
       );
